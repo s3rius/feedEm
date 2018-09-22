@@ -75,13 +75,27 @@ Data stored in PostgreSQL database.
 
 ## Views (V in MVC model)
 Implemented as Ruby on Rails views.
+Uses vue framework on client side. (?)
 
-* smth
+* Front page
+* Search page
+* Merchandise page
+* Order page
+* User profile
+* User login page
+* User registration page
+* Seller profile
+* Seller login page
+* Administrator panel
 
 ## Controllers (C in MVC model)
 Implemented as Ruby on Rails controllers.
 
-* smth
+* User controller
+* Seller controller
+* Order controller
+* Merchandise controller
+* Credit card controller
 
 ## Links
 
