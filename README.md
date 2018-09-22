@@ -42,3 +42,39 @@ And we got solusion for you.
 ### F2-3: Free advertisement. 
 If your food is good enough, new customers will found you. 
 More likes you get, more people will know about your food. 
+
+## BG-3: Easily control FeedEm service.
+
+### F3-1: Get the summary of the system.
+
+As an administrator you want to know what's going on in your system.
+You can view various data in the administrator's panel or get the summary of it.
+
+### F3-2: View information about orders.
+
+As an administrator you want to view all orders in the system and their status.
+You can monitor them in the administrator's panel.
+
+### F3-3: Add or remove sellers.
+
+As administrator you want to add or remove sellers (add new ones; delete ones that working poorly).
+You can add or delete them in the administrator's panel.
+
+# Components and their links
+
+## Models (M in MVC model)
+
+* smth
+
+## Views (V in MVC model)
+
+* smth
+
+## Controllers (C in MVC model)
+
+* smth
+
+## Links
+
+* smth
+
