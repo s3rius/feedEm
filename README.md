@@ -63,14 +63,23 @@ You can add or delete them in the administrator's panel.
 # Components and their links
 
 ## Models (M in MVC model)
+See the ER diagram.
+Implemented as Ruby on Rails models.
+Data stored in PostgreSQL database.
 
-* smth
+* Customers
+* Credit cards
+* Sellers
+* Merchandise
+* Orders
 
 ## Views (V in MVC model)
+Implemented as Ruby on Rails views.
 
 * smth
 
 ## Controllers (C in MVC model)
+Implemented as Ruby on Rails controllers.
 
 * smth
 
