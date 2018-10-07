@@ -1,6 +1,8 @@
-# FeedEm food project.
+<h1 align="left">
+FeedEm food project.
+</h1>
 
-FeedEm project is used for preorder your food in popular restaurants.
+### FeedEm project is used for preorder your food in popular restaurants.
 
 # User roles
 
@@ -62,7 +64,7 @@ You can monitor them in the administrator's panel.
 
 ### F3-3: Add or remove sellers.
 
-As administrator you want to add or remove sellers (add new ones; delete ones that working poorly).
+As administrator you want to add or remove sellers.
 
 You can add or delete them in the administrator's panel.
 
