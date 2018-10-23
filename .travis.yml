@@ -11,7 +11,7 @@ services:
   - docker
 
 before_install:
-  - pandoc -f markdown_github -t latex --pdf-engine=xelatex -V mainfont="DejaVu Sans Mono" -o docs/README.pdf docs/README.md
+  - pandoc -f markdown_github -t latex -V mainfont="DejaVu Sans Mono" -o docs/README.pdf docs/README.md
 
 after_success:
   - ./push.sh
