@@ -6,7 +6,7 @@ services:
   - docker
 
 before_install:
-  - docker run -it --mount src=$TRAVIS_BUILD_DIR,target=/home/feedem,type=bind vbatts/pandoc -f markdown_github -t latex -o /home/feedem/docs/README.pdf /home/feedem/README.md
+  - docker run -it --mount src=$TRAVIS_BUILD_DIR,target=/home/feedem,type=bind vbatts/pandoc -f markdown -t latex -o /home/feedem/docs/README.pdf --pdf-engine=xelatex  -V mainfont="DejaVu Sans Mono" /home/feedem/README.md
 
 
 after_success:
