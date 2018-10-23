@@ -2,21 +2,12 @@ sudo: required
 
 language: ruby
 
-addons:
-  apt:
-    packages:
-    - texlive-latex-base
-    - texlive-fonts-recommended
-    - texlive-fonts-extra
-    - texlive-latex-extra
-    - lmodern
-    - pandoc
-
 services:
   - docker
 
 before_install:
-  - pandoc -f markdown_github -t latex -V mainfont="DejaVu Sans Mono" -o docs/README.pdf README.md
+  - docker run -it --mount src=$TRAVIS_BUILD_DIR,target=/home/feedem,type=bind vbatts/pandoc -f markdown_github -t latex -o /home/feedem/docs/README.pdf /home/feedem/README.md
+
 
 after_success:
   - ./push.sh
