@@ -1,4 +1,3 @@
-[![Build Status](https://travis-ci.com/s3rius/feedEm.svg?branch=master)](https://travis-ci.com/s3rius/feedEm)
 <h1 align="left">
    FeedEm проект для предзаказа еды.
 </h1>
