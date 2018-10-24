@@ -1,106 +1,105 @@
+[![Build Status](https://travis-ci.com/s3rius/feedEm.svg?branch=master)](https://travis-ci.com/s3rius/feedEm)
 <h1 align="left">
-   FeedEm food project.
+   FeedEm проект для предзаказа еды.
 </h1>
 
-### FeedEm project is used for preorder your food in popular restaurants.
+### FeedEm - платформа для предзаказов еды.
 
-# User roles
+# Роли пользователей:
 
-* Customer
-* Seller
-* Administrator
+* Покупатель
+* Продавец
+* Администратор
 
-# Usecases
+# Сценарии использования
 
-## BG-1: Reduce customers waiting time.
+## BG-1: Уменьшить время ожидания для покупателей.
 
-### F1-1: Order will be ready when you get to the restaurant.
+### F1-1: Заказ покупателя будет готов, когда он прибудет в ресторан.
 
-As customer i want to get my food as fast as possible.
-This app allows you to preorder food and get it in desired time.
+Как покупателю, многим хотелось бы получать свои заказы так быстро, как это возможно.
 
-### F1-2: No more waiting in queues.
+Данное приложение позволит вам совершать предзаказ и получать еду к назначенному времени.
 
-FeedEm service has *no* waiting queues. 
-All you need for preorder - money and internet connection.
+Пользователю предоставляется выбор ресторана, где он может совершить заказ.
+В каждом ресторане имеется меню возможных товаров. После составления заказа, пользователю предлагается выбор времени, к которому заказ должен быть приготовлен.  
 
-## BG-2: Easiest way to process orders for customers.
+### F1-2: Никаких очередей.
 
-### F2-1: Don't need to pay for delivery service.
+Сервис feeEm *не* имеет очередей ожидания. 
+Всё, что понадобится для заказа - соединение с сетью интернет.
 
-FeedEm made not for delivery, but for preorder.
-Sellers goal is to make food in customer desired time. 
-Customers will come to get it.
+Заказ пользователя готовится к назначенному времени и вместо ожидания в очереди нужно только забрать заказ.
 
-### F2-2: Don't need to create your own web-app.
+## BG-2: Увеличение дохода ресторана.
 
-<a href="https://www.bk.com">BurgerKing™</a> has its own app for preordering,
-but writing your own app is very expencive.
-And we got solusion for you.
+### F2-1: Не требуется доплата за сервис доставки.
 
-### F2-3: Free advertisement. 
-If your food is good enough, new customers will found you. 
-More likes you get, more people will know about you. 
+FeedEm создан не для доставки, а для предзаказов.
+Цель продавцов - подготовка еды к нужному для клинтов времени. 
+Покупатели сам придут, чтобы получить заказ.
 
-More likes you get, more people will know about your food. 
+Владельцы ресторанов могут регестрировать свои заведения в приложении. После регистрации появляется возможность редактирования меню. 
+При составлении меню возможно указать:
+* Название товара
+* Цену товара
+* Описание
+* Примерное время готовки 
 
-## BG-3: Easily control FeedEm service.
+Позже меню может быть отредактировано в личном кабинете. 
 
-### F3-1: Get the summary of the system.
+### F2-2: Не требуется создавать собственное приложение.
 
-As an administrator you want to know what's going on in your system.
+<a href="https://www.bk.com">BurgerKing™</a> имеет собственное приложение для предзаказов, но написание подобного рода приложений затратно.
+И мы предлагаем вам наше решение.
 
-You can view various data in the administrator's panel or get the summary of it.
+После регистрации продавцу выдается уникальный токен, по которому продавец может совершать вход в личный кабинет.
+Токен может быть перевыдан по запросу продавца.
 
-### F3-2: View information about orders.
+### F2-3: Бесплатная реклама. 
 
-As an administrator you want to view all orders in the system and their status.
+Если предлагаемая вами еда высоко ценится клиентами, то новые покупатели сами найдут вас. 
+Чем выше будет ваш рейтинг, тем больше людей узнают о вас.
 
-You can monitor them in the administrator's panel.
+Также в feedEm ведется учёт рейтинга продавца. Чем больше положительных отзывов, тем выше будет продавец в поисковых запросах.
 
-### F3-3: Add or remove sellers.
+# Компоненты
 
-As administrator you want to add or remove sellers.
+## Модели (М в модели MVC)
+Смотрите ER-диаграмму.
 
-You can add or delete them in the administrator's panel.
+Реализованы как модели в Ruby on rails.
 
-# Components
+Данные хранятся в Postgresql.
 
-## Models (M in MVC model)
-See the ER diagram.
+* Покупатели
+* Кредитные карточки
+* Продавцы
+* Товары
+* Заказы
 
-Implemented as Ruby on Rails models.
+## Отображения (V в модели MVC)
+Реализованы как отображения в Ruby on rails.
 
-Data stored in PostgreSQL database.
+Используется Vue js фраемворк на стороне клиента.
 
-* Customers
-* Credit cards
-* Sellers
-* Merchandise
-* Orders
+* Домашняя страница
+* Страница поиска
+* Страница товара
+* Страница заказа товара
+* Страница профиля пользователя
+* Страница входа для пользователя
+* Страница регистрации пользователя
+* Страница профиля продавца
+* Страница входа для продавца
+* Панель администратора
 
-## Views (V in MVC model)
-Implemented as Ruby on Rails views.
+## Контроллеры (C в модели MVC)
+Реализованы как контроллеры в Ruby on Rails.
 
-Uses vue js framework on client side.
-
-* Front page
-* Search page
-* Merchandise page
-* Order page
-* User profile
-* User login page
-* User registration page
-* Seller profile
-* Seller login page
-* Administrator panel
-
-## Controllers (C in MVC model)
-Implemented as Ruby on Rails controllers.
-
-* User controller
-* Seller controller
-* Order controller
-* Merchandise controller
-* Credit card controller
+* Контроллер пользователя
+* Контроллер продавца
+* Контроллер заказа
+* Контроллер товара
+* Контроллер кредитных карт
 
