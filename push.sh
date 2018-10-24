@@ -3,7 +3,11 @@
 
 install_pandoc(){
     sudo apt-get update
-    sudo apt-get install -y texlive-full texlive-xetex lmodern pandoc
+    sudo apt-get install -y pandoc texlive-xetex
+}
+
+generate_pdf(){
+    pandoc -f markdown --latex-engine=xelatex -V mainfont="DejaVu Sans Mono" -o docs/README.pdf README.md
 }
 
 setup_git() {
@@ -24,7 +28,7 @@ upload_files() {
 
 if [ "$TRAVIS_BRANCH" == "docs" ];then
     install_pandoc
-    pandoc -f markdown --latex-engine=xelatex -V mainfont="DejaVu Sans Mono" -o docs/README.pdf README.md
+    generate_pdf
     setup_git
     commit_doc_files
     upload_files
