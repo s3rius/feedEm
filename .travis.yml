@@ -1,21 +1,12 @@
 sudo: required
 
-language: ruby
+language: ruby 
 
-addons:
-  apt:
-    packages:
-    - texlive-full
-    - texlive-xetex
-    - lmodern
-    - pandoc
 
 services:
   - docker
 
 before_install:
-  - pandoc -f markdown --latex-engine=xelatex -V mainfont="DejaVu Sans Mono" -o docs/README.pdf README.md
-
-after_success:
+  - sudo apt-get update
   - chmod +x push.sh 
   - ./push.sh
