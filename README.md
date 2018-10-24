@@ -1,9 +1,7 @@
 [![Build Status](https://travis-ci.com/s3rius/feedEm.svg?branch=master)](https://travis-ci.com/s3rius/feedEm)
 <h1 align="left">
-   FeedEm проект для предзаказа еды.
+   FeedEm платформа для предзаказа еды.
 </h1>
-
-### FeedEm - платформа для предзаказов еды.
 
 # Роли пользователей:
 
