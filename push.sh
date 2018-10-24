@@ -12,14 +12,14 @@ setup_git() {
 }
 
 commit_doc_files() {
-    git checkout -b doc-pages
+    git checkout ${TRAVIS_BRANCH}
     git add .
     git commit --message "Travis build: $TRAVIS_BUILD_NUMBER [skip ci]"
 }
 
 upload_files() {
     git remote add origin-pages https://${DKEY}@github.com/s3rius/feedEm.git > /dev/null 2>&1
-    git push --quiet --set-upstream origin-pages doc-pages
+    git push --quiet --set-upstream origin-pages ${TRAVIS_BRANCH}
 }
 
 if [ "$TRAVIS_BRANCH" == "docs" ];then
