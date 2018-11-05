@@ -14,4 +14,5 @@ install:
     - docker-compose build
 
 script:
-    - docker-compose run web rake test
+  - docker-compose run web rake db:create
+  - docker-compose run web rake test
