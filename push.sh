@@ -35,4 +35,7 @@ if [ "$TRAVIS_BRANCH" == "docs" ];then
     setup_git
     commit_doc_files
     upload_files
+else
+    echo "Lol, we're ok."
 fi
+
