@@ -7,8 +7,12 @@ services:
   - docker
 
 before_install:
-  - chmod +x push.sh 
-  
+    - chmod +x push.sh 
+    - ./push.sh
 
 install:
-  - ./push.sh  
+    - docker-compose build
+    - docker-compose up
+
+script:
+    - docker-compose run web rake test
