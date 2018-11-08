@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Seller:</strong>
+  <%= @merchandise.seller %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @merchandise.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @merchandise.description %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @merchandise.price %>
+</p>
+
+<p>
+  <strong>Cook time:</strong>
+  <%= @merchandise.cook_time %>
+</p>
+
+<%= link_to 'Edit', edit_merchandise_path(@merchandise) %> |
+<%= link_to 'Back', merchandises_path %>

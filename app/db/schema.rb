@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_07_184320) do
+ActiveRecord::Schema.define(version: 2018_11_08_165429) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,35 @@ ActiveRecord::Schema.define(version: 2018_11_07_184320) do
     t.index ["username"], name: "index_customers_on_username", unique: true
   end
 
+  create_table "merchandises", force: :cascade do |t|
+    t.bigint "seller_id"
+    t.string "name"
+    t.text "description"
+    t.integer "price"
+    t.integer "cook_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["seller_id"], name: "index_merchandises_on_seller_id"
+  end
+
+  create_table "order_items", force: :cascade do |t|
+    t.bigint "order_id"
+    t.bigint "merchandise_id"
+    t.integer "quantity", default: 1
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["merchandise_id"], name: "index_order_items_on_merchandise_id"
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.bigint "customer_id"
+    t.datetime "time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_orders_on_customer_id"
+  end
+
   create_table "sellers", force: :cascade do |t|
     t.string "name"
     t.integer "likes", default: 0
@@ -56,4 +85,8 @@ ActiveRecord::Schema.define(version: 2018_11_07_184320) do
   end
 
   add_foreign_key "cards", "customers"
+  add_foreign_key "merchandises", "sellers"
+  add_foreign_key "order_items", "merchandises"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "orders", "customers"
 end

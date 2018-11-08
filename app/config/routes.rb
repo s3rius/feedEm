@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :merchandises
+  resources :order_items
+  resources :orders
   resources :sellers
   resources :cards
   resources :admins
