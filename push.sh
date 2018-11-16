@@ -28,7 +28,7 @@ upload_files() {
     git push --quiet --set-upstream origin-pages "${TRAVIS_BRANCH}"
 }
 
-if [[ "$TRAVIS_BRANCH" = "docs" ]];then
+if [ "$TRAVIS_BRANCH" = "docs" ];then
     install_pandoc
     generate_pdf
     setup_git
