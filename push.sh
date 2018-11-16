@@ -2,7 +2,7 @@
 
 install_pandoc(){
     sudo apt-get update
-    sudo apt-get install -y texlive-xetex texlive-fonts-recommended texlive-latex-extra wget librsvg2-bin librsvg2-bin texlive-math-extra
+    sudo apt-get install -y --no-install-recommends texlive-xetex texlive-fonts-recommended texlive-latex-extra wget librsvg2-bin librsvg2-bin texlive-math-extra
     wget https://github.com/jgm/pandoc/releases/download/2.1.3/pandoc-2.1.3-1-amd64.deb
     sudo dpkg -i pandoc-2.1.3-1-amd64.deb
     rm pandoc-2.1.3-1-amd64.deb
