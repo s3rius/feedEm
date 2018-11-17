@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  customer: one
+  number: 5469540011234432
+  cvv: 421
+  expire: 2022-11-07
+
+two:
+  customer: two
+  number: 5469540011234944
+  cvv: 323
+  expire: 2021-10-07

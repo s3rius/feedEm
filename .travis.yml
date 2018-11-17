@@ -1,11 +1,20 @@
 sudo: required
 
-language: ruby 
+language: ruby
 
 
 services:
-  - docker
+- docker
 
 before_install:
-  - chmod +x push.sh 
-  - ./push.sh
+- chmod +x push.sh
+- ./push.sh
+
+install:
+- docker-compose build
+
+script:
+- docker-compose run web rails db:create
+- docker-compose run web rails db:migrate
+- docker-compose run web rails db:test:prepare
+- docker-compose run web rails test
