@@ -105,9 +105,7 @@ FeedEm создан не для доставки, а для предзаказо
 
 ### Логическая схема БД
 
-<h1 align="center">
-  <img src="docs/ER.png">
-</h1>
+![Logical scheme](docs/ER.png)]
 
 ### Отображения (V в модели MVC)
 Реализованы как отображения в Ruby on rails.
