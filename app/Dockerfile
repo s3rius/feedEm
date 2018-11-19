@@ -20,10 +20,14 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -\
 && apt-get install -y --no-install-recommends yarn \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
+
 RUN mkdir /myapp
 WORKDIR /myapp
+
 COPY Gemfile /myapp/Gemfile
 COPY Gemfile.lock /myapp/Gemfile.lock
 RUN bundle install
-COPY . /myapp
+
+COPY package.json /myapp/package.json
+COPY yarn.lock /myapp/yarn.lock
 RUN yarn install
