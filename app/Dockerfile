@@ -29,6 +29,7 @@ COPY Gemfile.lock /myapp/Gemfile.lock
 RUN bundle install
 
 COPY package.json /myapp/package.json
+COPY yarn.lock /myapp/yarn.lock
 
 RUN yarn install
 RUN yarn upgrade
