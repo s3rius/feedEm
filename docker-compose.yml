@@ -16,7 +16,7 @@ services:
     - webpacker
   webpacker:
     image: kolaer/feedem_web
-    command: bundle exec bin/webpack-dev-server
+    command: bundle exec bin/webpack
     volumes:
     - ./app:/myapp
     ports:
