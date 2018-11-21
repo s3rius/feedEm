@@ -17,5 +17,5 @@ script:
 - docker-compose run web rails db:create
 - docker-compose run web rails db:migrate
 - docker-compose run web rails db:test:prepare
-- docker-compose run web "RAILS_ENV=test rails webpacker:compile"
+- docker-compose run -e 'RAILS_ENV=test' web RAILS_ENV=test rails webpacker:compile
 - docker-compose run web rails test
