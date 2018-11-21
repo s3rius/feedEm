@@ -20,9 +20,9 @@ services:
     volumes:
     - ./app:/myapp
     ports:
-    - "8080:8080"
+    - "3050:8080"
   adminer:
     image: adminer
     restart: always
     ports:
-    - 4352:8080
+    - "4352:8080"
