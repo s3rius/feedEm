@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e45e084c4346433cbe6ee8c69314d992)](https://app.codacy.com/app/win10/feedEm?utm_source=github.com&utm_medium=referral&utm_content=s3rius/feedEm&utm_campaign=Badge_Grade_Dashboard)
 [![Build Status](https://travis-ci.com/s3rius/feedEm.svg?branch=master)](https://travis-ci.com/s3rius/feedEm)
 <h1 align="left">
    FeedEm платформа для предзаказа еды.
