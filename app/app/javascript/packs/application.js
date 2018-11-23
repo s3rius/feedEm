@@ -8,15 +8,20 @@
 // layout file, like app/views/layouts/application.html.erb
 
 console.log('Hello World from Webpacker');
+import 'vue-material/dist/vue-material.min.css'
+import 'vue-material/dist/theme/default-dark.css'
 import TurbolinksAdapter from 'vue-turbolinks';
 import Vue from 'vue/dist/vue.esm';
-import App from '../components/app.vue';
+import App from '../components/app';
+import VueMaterial from 'vue-material'
+
 
 Vue.use(TurbolinksAdapter);
+Vue.use(VueMaterial);
 Vue.component('app', App);
 
 document.addEventListener('turbolinks:load', () => {
-    const app = new Vue({
-        el: '[data-behavior="vue"]'
+    const mv = new Vue({
+        el: '.vue'
     });
 });
