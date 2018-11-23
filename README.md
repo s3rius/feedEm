@@ -171,12 +171,12 @@ FeedEm создан не для доставки, а для предзаказо
 
 Логическая схема:
 
+
 ![Logical scheme](docs/ER.png)
 
 Полноворматное изображение логической схемы можно увидеть по ссылке:
+ "https://raw.githubusercontent.com/s3rius/feedEm/docs/docs/ER.png"
  
-https://raw.githubusercontent.com/s3rius/feedEm/docs/docs/ER.png
-
 ### Отображения (V в модели MVC)
 Реализованы как отображения в Ruby on rails.
 
