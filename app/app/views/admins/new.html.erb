@@ -1,5 +1,7 @@
-<h1>New Admin</h1>
+<div class="vue">
+  <f-navbar></f-navbar>
+  <f-title :title='"New admin"' :sub_title="''"></f-title>
 
-<%= render 'form', admin: @admin %>
+  <%= render 'form', admin: @admin %>
 
-<%= link_to 'Back', admins_path %>
+</div>
