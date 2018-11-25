@@ -1,15 +1,7 @@
 <%= form_with(model: customer, local: true, html: {class: 'form'}) do |form| %>
   <% if customer.errors.any? %>
     <div id="error_explanation">
-      <div class="notification is-primary">
-        <button class="delete"></button>
-        <%= pluralize(customer.errors.count, "error") %> prohibited this customer from being saved:
-        <ul>
-          <% customer.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
+      <f-error-snack :errors="<%= customer.errors.full_messages.to_s %>"></f-error-snack>
     </div>
   <% end %>
 
