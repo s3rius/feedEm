@@ -7,21 +7,23 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-console.log('Hello World from Webpacker');
-import 'vue-material/dist/vue-material.min.css'
-import 'vue-material/dist/theme/default-dark.css'
-import TurbolinksAdapter from 'vue-turbolinks';
-import Vue from 'vue/dist/vue.esm';
-import App from '../components/app';
-import VueMaterial from 'vue-material'
-
+console.log("Hello World from Webpacker");
+import TurbolinksAdapter from "vue-turbolinks";
+import Vue from "vue/dist/vue.esm";
+import App from "../components/app";
+import "bulma/css/bulma.css";
+import FeedEmNavBar from "../components/FeedemNavBar";
+import FeedemTitle from "../components/TitleComponent";
+import FeedemForm from "../components/AddFormComponent";
 
 Vue.use(TurbolinksAdapter);
-Vue.use(VueMaterial);
-Vue.component('app', App);
+Vue.component("app", App);
+Vue.component("f-navbar", FeedEmNavBar);
+Vue.component("f-title", FeedemTitle);
+Vue.component("f-addform", FeedemForm);
 
-document.addEventListener('turbolinks:load', () => {
+document.addEventListener("turbolinks:load", () => {
     const mv = new Vue({
-        el: '.vue'
+        el: ".vue"
     });
 });

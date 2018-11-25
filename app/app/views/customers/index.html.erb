@@ -1,18 +1,20 @@
-<p id="notice"><%= notice %></p>
+<div class="vue">
+  <p id="notice"><%= notice %></p>
 
-<h1>Customers</h1>
+  <f-navbar></f-navbar>
+  <f-title :title='"Customers"'></f-title>
 
-<table>
-  <thead>
+  <table class="table is-fullwidth">
+    <thead>
     <tr>
       <th>Username</th>
       <th>Name</th>
       <th>Surname</th>
       <th colspan="3"></th>
     </tr>
-  </thead>
+    </thead>
 
-  <tbody>
+    <tbody>
     <% @customers.each do |customer| %>
       <tr>
         <td><%= customer.username %></td>
@@ -20,12 +22,13 @@
         <td><%= customer.surname %></td>
         <td><%= link_to 'Show', customer %></td>
         <td><%= link_to 'Edit', edit_customer_path(customer) %></td>
-        <td><%= link_to 'Destroy', customer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', customer, method: :delete, data: {confirm: 'Are you sure?'} %></td>
       </tr>
     <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
 
-<br>
+  <br>
 
-<%= link_to 'New Customer', new_customer_path %>
+  <%= link_to 'New Customer', new_customer_path, class: "button is-light" %>
+</div>
