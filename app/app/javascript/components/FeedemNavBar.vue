@@ -3,44 +3,57 @@
         <div class="navbar-brand">
             <a class="navbar-item" href="/">
                 <img src="/img/logo.png">
-                <h2>FeedEm</h2>
+                <h2 :class="nav_style">FeedEm</h2>
             </a>
 
             <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
-               data-target="navbarBasicExample">
+               data-target="navBarItems">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
             </a>
         </div>
 
-        <div id="navbarBasicExample" class="navbar-menu">
+        <div id="navBarItems" class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item">
+                <a href="/" class="navbar-item" :class="nav_style">
                     Home
                 </a>
 
-                <a class="navbar-item">
+                <a href="https://github.com/s3rius/feedEm/blob/master/README.md" class="navbar-item" :class="nav_style">
                     Documentation
                 </a>
 
                 <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link">
-                        More
+                    <a class="navbar-link" :class="nav_style">
+                        Models
                     </a>
 
                     <div class="navbar-dropdown">
-                        <a class="navbar-item">
-                            About
+                        <a href="/customers" class="navbar-item">
+                            Customers
                         </a>
-                        <a class="navbar-item">
-                            Jobs
+                        <a href="/sellers" class="navbar-item">
+                            Sellers
                         </a>
-                        <a class="navbar-item">
-                            Contact
+                        <a href="/admins" class="navbar-item">
+                            Admins
                         </a>
                         <hr class="navbar-divider">
-                        <a class="navbar-item">
+                        <a href="/merchandises" class="navbar-item">
+                            Merchandises
+                        </a>
+                        <a href="/orders" class="navbar-item">
+                            Orders
+                        </a>
+                        <a href="/order_items" class="navbar-item">
+                            Order items
+                        </a>
+                        <a href="/cards" class="navbar-item">
+                            Cards
+                        </a>
+                        <hr class="navbar-divider">
+                        <a href="https://github.com/s3rius/feedEm/issues" class="navbar-item">
                             Report an issue
                         </a>
                     </div>
@@ -65,10 +78,24 @@
 
 <script>
     export default {
-        name: "FeedemNavBar"
+        name: "FeedemNavBar",
+        props: {
+            is_white: {
+                default: false
+            }
+        },
+        computed: {
+            nav_style: function () {
+                return {
+                    white: this.is_white
+                }
+            }
+        }
     }
 </script>
 
 <style scoped>
-
+    .white {
+        color: white;
+    }
 </style>
