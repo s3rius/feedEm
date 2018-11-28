@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'search_api/search'
   resources :merchandises
   resources :order_items
   resources :orders
