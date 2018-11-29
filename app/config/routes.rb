@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   get 'search_api/search'
+  get 'welcome/merch'
+  get 'welcome/sellers'
   get 'welcome/index'
   resources :merchandises
   resources :order_items

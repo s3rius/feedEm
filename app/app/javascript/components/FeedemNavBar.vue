@@ -1,12 +1,13 @@
 <template>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
+    <nav class="navbar is-fixed-top has-background-primary" role="navigation"
+         aria-label="main navigation">
         <div class="navbar-brand">
             <a class="navbar-item" href="/">
                 <img src="/img/logo.png">
-                <h2 :class="nav_style">FeedEm</h2>
+                <h2 class="white">FeedEm</h2>
             </a>
 
-            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+            <a role="button" @click="openBar" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
                data-target="navBarItems">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
@@ -14,18 +15,18 @@
             </a>
         </div>
 
-        <div id="navBarItems" class="navbar-menu">
+        <div id="navBarItems" class="navbar-menu" :class="{'is-active': active}">
             <div class="navbar-start">
-                <a href="/" class="navbar-item" :class="nav_style">
+                <a href="/" class="navbar-item white">
                     Home
                 </a>
 
-                <a href="https://github.com/s3rius/feedEm/blob/master/README.md" class="navbar-item" :class="nav_style">
+                <a href="https://github.com/s3rius/feedEm/blob/master/README.md" class="navbar-item white">
                     Documentation
                 </a>
 
                 <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link" :class="nav_style">
+                    <a class="navbar-link white">
                         Models
                     </a>
 
@@ -61,6 +62,9 @@
             </div>
 
             <div class="navbar-end">
+                <div class="navbar-item" v-show="visible_search">
+                    <f-search></f-search>
+                </div>
                 <div class="navbar-item">
                     <div class="buttons">
                         <a class="button is-primary">
@@ -80,22 +84,41 @@
     export default {
         name: "FeedemNavBar",
         props: {
-            is_white: {
-                default: false
+            visible_search: {
+                default: true
             }
         },
-        computed: {
-            nav_style: function () {
-                return {
-                    white: this.is_white
-                }
+        data: function () {
+            return {
+                active: false
+            }
+        },
+        methods: {
+            openBar: function (event) {
+                this.active = !this.active;
             }
         }
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
     .white {
         color: white;
     }
+
+    .navbar-item.has-dropdown:hover .navbar-link, .navbar-item.has-dropdown.is-active .navbar-link {
+        color: #7957d5;
+    }
+
+    .is-active {
+        $mcolor: #7957D5;
+        .navbar-link {
+            color: $mcolor;
+        }
+        .navbar-item {
+            color: $mcolor;
+        }
+    }
+
+
 </style>
