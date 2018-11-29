@@ -2,10 +2,14 @@
   "name": "app",
   "private": true,
   "dependencies": {
+    "@mdi/font": "^3.0.39",
     "@rails/webpacker": "3.5",
     "buefy": "^0.7.1",
+    "jquery": "^3.3.1",
     "vue": "^2.5.17",
     "vue-loader": "14.2.2",
+    "vue-observe-visibility": "^0.4.3",
+    "vue-resize": "^0.4.4",
     "vue-template-compiler": "^2.5.17",
     "vue-turbolinks": "^2.0.3"
   },
