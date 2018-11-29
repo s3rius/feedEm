@@ -3,12 +3,12 @@ class SearchApiController < ApplicationController
     query = params[:query].to_s.strip
     limit = params[:limit].to_i
 
-    if query.empty? then
+    if query.empty?
       render :json => {:res => 'empty_query'}
       return
     end
 
-    if limit < 1 then
+    if limit < 1
       limit = 10
     end
 
