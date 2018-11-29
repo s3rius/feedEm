@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'welcome/merch'
+  get 'welcome/sellers'
   get 'welcome/index'
   resources :merchandises
   resources :order_items
