@@ -14,13 +14,13 @@ class SearchApiController < ApplicationController
 
     result = []
 
-    sellers_names = Seller.search_by_name(query).map(&:name)
+    sellers_names = Seller.search_by_name(query).limit(limit).map(&:name)
 
     sellers_names.each { |name|
       result << {:suggest => name, :type => 'Seller'}
     }
 
-    merch_names = Merchandise.search_by_name(query).map(&:name)
+    merch_names = Merchandise.search_by_name(query).limit(limit).map(&:name)
 
     merch_names.each { |name|
       result << {:suggest => name, :type => 'Order item'}
