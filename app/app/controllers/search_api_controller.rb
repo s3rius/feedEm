@@ -12,7 +12,7 @@ class SearchApiController < ApplicationController
 
     result = []
 
-    sellers = Seller.search_by_name(query)
+    sellers = Seller.search_by_name(query).limit(limit)
 
     sellers.each do |seller|
       result << { suggest: seller.name,
@@ -20,7 +20,7 @@ class SearchApiController < ApplicationController
                   url: (url_for controller: 'sellers', action: 'show', id: seller.id) }
     end
 
-    merchs = Merchandise.search_by_name(query)
+    merchs = Merchandise.search_by_name(query).limit(limit)
 
     merchs.each do |merch|
       result << { suggest: merch.name,
