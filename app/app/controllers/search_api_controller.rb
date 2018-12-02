@@ -3,31 +3,33 @@ class SearchApiController < ApplicationController
     query = params[:query].to_s.strip
     limit = params[:limit].to_i
 
-    if query.empty? then
-      render :json => {:res => 'empty_query'}
+    if query.empty?
+      render json: { res: 'empty_query' }
       return
     end
 
-    if limit < 1 then
-      limit = 10
-    end
+    limit = 10 if limit < 1
 
     result = []
 
-    sellers_names = Seller.search_by_name(query).map(&:name)
+    sellers = Seller.search_by_name(query)
 
-    sellers_names.each { |name|
-      result << {:suggest => name, :type => 'Seller'}
-    }
+    sellers.each do |seller|
+      result << { suggest: seller.name,
+                  type: 'Seller',
+                  url: (url_for controller: 'sellers', action: 'show', id: seller.id) }
+    end
 
-    merch_names = Merchandise.search_by_name(query).map(&:name)
+    merchs = Merchandise.search_by_name(query)
 
-    merch_names.each { |name|
-      result << {:suggest => name, :type => 'Order item'}
-    }
+    merchs.each do |merch|
+      result << { suggest: merch.name,
+                  type: 'Order item',
+                  url: (url_for controller: 'merchandises', action: 'show', id: merch.id) }
+    end
 
-    result = {:res => 'ok', :data => result}
+    result = { res: 'ok', data: result }
 
-    render :json => result
+    render json: result
   end
 end
