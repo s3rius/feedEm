@@ -16,7 +16,7 @@
                         <b-input placeholder="Find food or Seller"></b-input>
 
                         <div class="search-item" slot="suggestion-item" slot-scope="{ suggestion, query }">
-                            <div>{{ suggestion.id }} by {{ suggestion.name }}</div>
+                            <div>{{ suggestion.suggest }}</div>
                         </div>
                     </vue-simple-suggest>
                 </div>
@@ -57,15 +57,15 @@
                     suggestions: "position-absolute list-group z-1000",
                     suggestItem: "list-group-item"
                 },
-                value_attr: 'id',
-                display_attr: 'name'
+                value_attr: 'url',
+                display_attr: 'suggest'
             }
         },
         methods: {
             updateItems(text) {
-                return this.axios.get(`https://jsonplaceholder.typicode.com/comments`)
+                return this.axios.get(`search_api/search?query=${text}&limit=5`)
                     .then((response) => {
-                        return response.data
+                        return response.data.data
                     });
             }
         }
