@@ -54,7 +54,7 @@
                             Cards
                         </a>
                         <hr class="navbar-divider">
-                        <a href="https://github.com/s3rius/feedEm/issues" class="navbar-item">
+                        <a href="https://github.com/s3rius/feedEm/issues/new" class="navbar-item">
                             Report an issue
                         </a>
                     </div>
@@ -81,8 +81,13 @@
 </template>
 
 <script>
+    import FeedemSearch from "./searchbar/SearchBar";
+
     export default {
         name: "FeedemNavBar",
+        components: {
+            'f-search': FeedemSearch
+        },
         props: {
             visible_search: {
                 default: true
@@ -102,16 +107,17 @@
 </script>
 
 <style scoped lang="scss">
+    $mcolor: #7957D5;
+
     .white {
         color: white;
     }
 
     .navbar-item.has-dropdown:hover .navbar-link, .navbar-item.has-dropdown.is-active .navbar-link {
-        color: #7957d5;
+        color: $mcolor;
     }
 
     .is-active {
-        $mcolor: #7957D5;
         .navbar-link {
             color: $mcolor;
         }

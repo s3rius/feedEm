@@ -30,8 +30,13 @@
 </template>
 
 <script>
+    import FeedemSearch from "./searchbar/SearchBar";
+
     export default {
         name: "TitleWelcome",
+        components: {
+            'f-search': FeedemSearch
+        },
         props: {
             tabIndex: {
                 default: 0

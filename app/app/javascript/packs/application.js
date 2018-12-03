@@ -10,30 +10,27 @@
 console.log("Vue app rendering is running.");
 import TurbolinksAdapter from "vue-turbolinks";
 import Vue from "vue/dist/vue.esm";
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 import Buefy from 'buefy';
-import VueResize from 'vue-resize';
 import 'buefy/dist/buefy.css';
 import 'vue-resize/dist/vue-resize.css';
 import '@mdi/font/css/materialdesignicons.min.css';
 import VueObserveVisibility from 'vue-observe-visibility';
 import FeedEmNavBar from "../components/FeedemNavBar";
 import FeedemTitle from "../components/TitleSimple";
-import FeedemForm from "../components/AddFormComponent";
 import FeedemErrorSnack from "../components/ErrorSnackBar";
 import FeedemTitleWelcome from "../components/TitleWelcome";
-import FeedemSearch from "../components/SearchBar";
-import * as jQuery from 'jquery';
+
 
 Vue.use(TurbolinksAdapter);
 Vue.use(Buefy);
-Vue.use(VueResize);
+Vue.use(VueAxios, axios);
 Vue.use(VueObserveVisibility);
 Vue.component("f-navbar", FeedEmNavBar);
 Vue.component("f-title", FeedemTitle);
-Vue.component("f-addform", FeedemForm);
 Vue.component("f-error-snack", FeedemErrorSnack);
 Vue.component('f-welcome-title', FeedemTitleWelcome);
-Vue.component('f-search', FeedemSearch);
 
 document.addEventListener("turbolinks:load", () => {
     const mv = new Vue({
