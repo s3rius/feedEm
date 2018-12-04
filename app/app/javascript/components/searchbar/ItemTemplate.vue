@@ -1,16 +1,23 @@
 <template>
-    <div class="searchItem">
-        <b>#{{item.id}}</b>
-        <span>{{ item.name }}</span>
-        <abbr>{{item.body}}</abbr>
+    <div>
+        <b-icon class="is-inline-block" v-if="item.type === 'Seller'"
+                icon="store"></b-icon>
+        <b-icon class="is-inline-block" v-if="item.type === 'Order item'"
+                icon="food-fork-drink"></b-icon>
+        <div class="is-inline-block">{{ item.suggest }}</div>
+        <div class="is-inline-block f-right"
+             v-if="item.type === 'Seller'">
+            <a class="button search-button" :href="item.url">Open
+                page
+            </a>
+        </div>
     </div>
 </template>
 
 <script>
     export default {
         props: {
-            item: {required: true},
-            searchText: {required: true}
+            item: {required: true}
         }
     }
 </script>

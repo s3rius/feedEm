@@ -12,16 +12,17 @@
                             :display-attribute="display_attr"
                             :styles="autoCompleteStyle"
                             :destyled=true
+                            ref="suggestComponent"
                     >
                         <b-input placeholder="Find food or Seller"></b-input>
 
                         <div class="search-item" slot="suggestion-item" slot-scope="{ suggestion, query }">
-                            <div>{{ suggestion.suggest }}</div>
+                            <s-item :item="suggestion"></s-item>
                         </div>
                     </vue-simple-suggest>
                 </div>
                 <div class="control">
-                    <a class="button is-info">
+                    <a class="button is-info" @click="searchForIt">
                         <b-icon icon="magnify" type="is-white"></b-icon>
                     </a>
                 </div>
@@ -32,7 +33,7 @@
 
 <script>
     import BIcon from "buefy/src/components/icon/Icon";
-
+    import SearchItem from './ItemTemplate'
     const VueSimpleSuggest = require('vue-simple-suggest/dist/cjs');
     import BInput from "buefy/src/components/input/Input";
 
@@ -40,6 +41,7 @@
         name: "SearchBar",
         components: {
             'b-input': BInput,
+            's-item': SearchItem,
             'vue-simple-suggest': VueSimpleSuggest,
             'b-icon': BIcon
         },
@@ -67,6 +69,18 @@
                     .then((response) => {
                         return response.data.data
                     });
+            },
+            searchForIt() {
+                let query = this.$refs.suggestComponent.text;
+                if (query === undefined || query.trim() === '') {
+                    this.$snackbar.open({
+                        message: `Empty query`,
+                        type: 'is-warning',
+                        position: 'is-bottom-left'
+                    });
+                } else {
+                    window.location.href = `/search?query=${query}`;
+                }
             }
         }
     }
@@ -81,6 +95,18 @@
         }
     }
 
+    .search-button {
+        line-height: 1;
+        border-radius: 10px;
+        border: 2px solid $mcolor;
+        width: 100%;
+        height: 100%;
+    }
+
+    .f-right {
+        float: right;
+    }
+
     .position-absolute {
         position: absolute !important;
     }
@@ -90,6 +116,7 @@
     }
 
     .suggest-item {
+        overflow: auto;
         background: #ffffff;
     }
 
