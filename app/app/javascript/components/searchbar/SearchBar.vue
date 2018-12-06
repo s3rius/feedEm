@@ -79,7 +79,7 @@
                         position: 'is-bottom-left'
                     });
                 } else {
-                    window.location.href = `/search?query=${query}`;
+                    Turbolinks.visit(`/search?query=${query}`);
                 }
             }
         }
