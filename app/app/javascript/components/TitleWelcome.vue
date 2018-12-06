@@ -13,10 +13,10 @@
                     <div class="container">
                         <ul>
                             <li :class="{'is-active': activeTab(0)}">
-                                <a :class="{'has-text-white': !activeTab(0)}">Available merchandises</a>
+                                <a href="/" :class="{'has-text-white': !activeTab(0)}">Available merchandises</a>
                             </li>
                             <li :class="{'is-active': activeTab(1)}">
-                                <a :class="{'has-text-white': !activeTab(1)}">Sellers</a>
+                                <a href="/welcome/sellers" :class="{'has-text-white': !activeTab(1)}">Sellers</a>
                             </li>
                         </ul>
                     </div>
@@ -44,7 +44,7 @@
         },
         data: function () {
             return {
-                image: "img/sushi.jpg",
+                image: "/img/sushi.jpg",
                 visible: false,
             }
         },

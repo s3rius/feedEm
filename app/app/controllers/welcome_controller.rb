@@ -3,6 +3,7 @@ class WelcomeController < ApplicationController
   end
 
   def merch
+    @merchandises = Merchandise.all
   end
 
   def sellers
