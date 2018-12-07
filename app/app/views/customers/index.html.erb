@@ -1,5 +1,7 @@
 <div class="vue">
-  <p id="notice"><%= notice %></p>
+  <% if notice %>
+    <f-snack :errors="['<%= notice %>']"></f-snack>
+  <% end %>
 
   <f-navbar></f-navbar>
   <f-title :title='"Customers"'></f-title>
@@ -30,5 +32,5 @@
 
   <br>
 
-  <%= link_to 'New Customer', new_customer_path, class: "button is-light" %>
+  <%= link_to 'New Customer', new_customer_path, class: "button is-primary" %>
 </div>

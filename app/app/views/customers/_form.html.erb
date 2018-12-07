@@ -1,7 +1,7 @@
 <%= form_with(model: customer, local: true, html: {class: 'form'}) do |form| %>
   <% if customer.errors.any? %>
     <div id="error_explanation">
-      <f-error-snack :errors="<%= customer.errors.full_messages.to_s %>"></f-error-snack>
+      <f-snack :errors="<%= customer.errors.full_messages.to_s %>"></f-snack>
     </div>
   <% end %>
 

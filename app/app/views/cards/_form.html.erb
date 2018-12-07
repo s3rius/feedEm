@@ -1,37 +1,44 @@
 <%= form_with(model: card, local: true) do |form| %>
   <% if card.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(card.errors.count, "error") %> prohibited this card from being saved:</h2>
-
-      <ul>
-      <% card.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+      <f-error-snack :errors="<%= card.errors.full_messages.to_s %>"></f-error-snack>
     </div>
   <% end %>
 
   <div class="field">
-    <%= form.label :customer_id %>
-    <%= form.text_field :customer_id %>
+    <div class="control has-icons-left has-icons-right">
+      <%= form.text_field :customer_id, class: "input is-medium", placeholder: "Customer id" %>
+    </div>
   </div>
 
   <div class="field">
-    <%= form.label :number %>
-    <%= form.text_field :number %>
+    <div class="control has-icons-left has-icons-right">
+      <%= form.text_field :number, class: "input is-medium", placeholder: "Card number" %>
+    </div>
   </div>
 
   <div class="field">
-    <%= form.label :cvv %>
-    <%= form.number_field :cvv %>
+    <div class="control has-icons-left has-icons-right">
+      <%= form.text_field :cvv, class: "input is-medium", placeholder: "CVV Code" %>
+    </div>
   </div>
 
   <div class="field">
-    <%= form.label :expire %>
-    <%= form.date_select :expire %>
+    <div class="control has-icons-left has-icons-right">
+        <b-datepicker
+          placeholder="Expire date"
+          name="card[expire]"
+          icon="calendar-today">
+        </b-datepicker>
+    </div>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="field is-grouped">
+    <p class="control">
+      <%= form.submit class: "button is-primary" %>
+    </p>
+    <p class="control">
+      <%= link_to 'Back', cards_path, class: "button is-light" %>
+    </p>
   </div>
 <% end %>

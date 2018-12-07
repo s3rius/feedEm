@@ -1,5 +1,7 @@
-<h1>New Seller</h1>
+<div class="vue">
+  <f-navbar></f-navbar>
+  <f-title :title="'New seller'" :subtitle="''"></f-title>
 
-<%= render 'form', seller: @seller %>
+  <%= render 'form', seller: @seller %>
 
-<%= link_to 'Back', sellers_path %>
+</div>

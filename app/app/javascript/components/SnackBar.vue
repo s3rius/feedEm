@@ -10,14 +10,17 @@
         props: {
             errors: {
                 default: () => []
+            },
+            type: {
+                default: 'is-danger'
             }
         },
         mounted: function () {
             if (this.errors.length > 0) {
                 this.errors.forEach(err => {
                     this.$snackbar.open({
-                        message: `Error found: ${err}`,
-                        type: 'is-danger',
+                        message: err,
+                        type: this.type,
                         position: 'is-bottom-left'
                     })
                 });

@@ -19,7 +19,7 @@ import '@mdi/font/css/materialdesignicons.min.css';
 import VueObserveVisibility from 'vue-observe-visibility';
 import FeedEmNavBar from "../components/FeedemNavBar";
 import FeedemTitle from "../components/TitleSimple";
-import FeedemErrorSnack from "../components/ErrorSnackBar";
+import FeedemErrorSnack from "../components/SnackBar";
 import FeedemTitleWelcome from "../components/TitleWelcome";
 import FeedemMerchandiseCard from "../components/models/merchandise"
 
@@ -30,7 +30,7 @@ Vue.use(VueAxios, axios);
 Vue.use(VueObserveVisibility);
 Vue.component("f-navbar", FeedEmNavBar);
 Vue.component("f-title", FeedemTitle);
-Vue.component("f-error-snack", FeedemErrorSnack);
+Vue.component("f-snack", FeedemErrorSnack);
 Vue.component('f-welcome-title', FeedemTitleWelcome);
 Vue.component('f-merch-card', FeedemMerchandiseCard);
 

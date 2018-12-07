@@ -1,42 +1,49 @@
 <%= form_with(model: merchandise, local: true) do |form| %>
   <% if merchandise.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(merchandise.errors.count, "error") %> prohibited this merchandise from being saved:</h2>
-
-      <ul>
-      <% merchandise.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
+      <div id="error_explanation">
+        <f-snack :errors="<%= merchandise.errors.full_messages.to_s %>"></f-snack>
+      </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :seller_id %>
-    <%= form.text_field :seller_id %>
-  </div>
+  <div class="form">
+    <div class="field">
+      <div class="control has-icons-left has-icons-right">
+        <%= form.text_field :seller_id, class: "input is-medium", placeholder: "Seller id" %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
+    <div class="field">
+      <div class="control has-icons-left has-icons-right">
+        <%= form.text_field :name, class: "input is-medium", placeholder: "Name" %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
+    <div class="field">
+      <div class="control has-icons-left has-icons-right">
+        <%= form.text_area :description, class: "input is-medium", placeholder: "Description" %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= form.label :price %>
-    <%= form.number_field :price %>
-  </div>
+    <div class="field">
+      <div class="control has-icons-left has-icons-right">
+        <%= form.number_field :price, class: "input is-medium", placeholder: "Price" %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= form.label :cook_time %>
-    <%= form.number_field :cook_time %>
-  </div>
 
-  <div class="actions">
-    <%= form.submit %>
+    <div class="field">
+      <div class="control has-icons-left has-icons-right">
+        <%= form.number_field :cook_time, class: "input is-medium", placeholder: "Cook time" %>
+      </div>
+    </div>
+
+    <div class="field is-grouped">
+      <p class="control">
+        <%= form.submit class: "button is-primary" %>
+      </p>
+      <p class="control">
+        <%= link_to 'Back', merchandises_path, class: "button is-light" %>
+      </p>
+    </div>
   </div>
 <% end %>

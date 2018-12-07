@@ -1,6 +1,8 @@
-<h1>Editing Seller</h1>
+<div class="vue">
 
-<%= render 'form', seller: @seller %>
+  <f-navbar></f-navbar>
+  <f-title :title='"Edit seller"'></f-title>
 
-<%= link_to 'Show', @seller %> |
-<%= link_to 'Back', sellers_path %>
+  <%= render 'form', seller: @seller %>
+
+</div>
