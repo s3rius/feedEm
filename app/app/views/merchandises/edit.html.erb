@@ -1,6 +1,8 @@
-<h1>Editing Merchandise</h1>
+<div class="vue">
 
-<%= render 'form', merchandise: @merchandise %>
+  <f-navbar></f-navbar>
+  <f-title :title='"Edit merchandise"'></f-title>
 
-<%= link_to 'Show', @merchandise %> |
-<%= link_to 'Back', merchandises_path %>
+  <%= render 'form', merchandise: @merchandise %>
+
+</div>

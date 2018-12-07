@@ -1,0 +1,14 @@
+<div class="vue">
+  <!--  <f-navbar></f-navbar>-->
+  <f-welcome-title :tab-index="0">
+    <div class="container" style="margin-top: 2%">
+      <div class="columns is-multiline is-mobile">
+        <% @merchandises.each do |merchandise| %>
+          <div class="column is-3-desktop is-12-mobile is-mobile">
+            <f-merch-card :merchandise="<%= merchandise.to_json(:include => :seller, :except => [:created_at, :updated_at]) %>"></f-merch-card>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </f-welcome-title>
+</div>

@@ -1,27 +1,35 @@
-<p id="notice"><%= notice %></p>
+<div class="vue">
 
-<h1>Admins</h1>
+  <% if notice %>
+    <f-snack :errors="['<%= notice %>']"></f-snack>
+  <% end %>
 
-<table>
-  <thead>
+  <f-navbar></f-navbar>
+  <f-title :title='"Admins"'></f-title>
+
+  <h1>Admins</h1>
+
+  <table class="table is-fullwidth">
+    <thead>
     <tr>
       <th>Username</th>
       <th colspan="3"></th>
     </tr>
-  </thead>
+    </thead>
 
-  <tbody>
+    <tbody>
     <% @admins.each do |admin| %>
       <tr>
         <td><%= admin.username %></td>
         <td><%= link_to 'Show', admin %></td>
         <td><%= link_to 'Edit', edit_admin_path(admin) %></td>
-        <td><%= link_to 'Destroy', admin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', admin, method: :delete, data: {confirm: 'Are you sure?'} %></td>
       </tr>
     <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
 
-<br>
+  <br>
 
-<%= link_to 'New Admin', new_admin_path %>
+  <%= link_to 'New Admin', new_admin_path, class: "button is-primary"%>
+</div>

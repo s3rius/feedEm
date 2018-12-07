@@ -2,9 +2,18 @@
   "name": "app",
   "private": true,
   "dependencies": {
+    "@mdi/font": "^3.0.39",
     "@rails/webpacker": "3.5",
+    "axios": "^0.18.0",
+    "babel-plugin-transform-regenerator": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "buefy": "^0.7.1",
     "vue": "^2.5.17",
+    "vue-axios": "^2.1.4",
     "vue-loader": "14.2.2",
+    "vue-observe-visibility": "^0.4.3",
+    "vue-resize": "^0.4.4",
+    "vue-simple-suggest": "^1.8.2",
     "vue-template-compiler": "^2.5.17",
     "vue-turbolinks": "^2.0.3"
   },

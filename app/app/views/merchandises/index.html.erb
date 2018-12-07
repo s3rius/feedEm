@@ -1,8 +1,12 @@
-<p id="notice"><%= notice %></p>
+<div class="vue">
+  <% if notice %>
+    <f-snack :errors="['<%= notice %>']"></f-snack>
+  <% end %>
 
-<h1>Merchandises</h1>
+  <f-navbar></f-navbar>
+  <f-title :title='"Merchandises"'></f-title>
 
-<table>
+  <table class="table is-fullwidth">
   <thead>
     <tr>
       <th>Seller</th>
@@ -17,7 +21,7 @@
   <tbody>
     <% @merchandises.each do |merchandise| %>
       <tr>
-        <td><%= merchandise.seller %></td>
+        <td><%= merchandise.seller.id %></td>
         <td><%= merchandise.name %></td>
         <td><%= merchandise.description %></td>
         <td><%= merchandise.price %></td>
@@ -32,4 +36,5 @@
 
 <br>
 
-<%= link_to 'New Merchandise', new_merchandise_path %>
+  <%= link_to 'New Merchandise', new_merchandise_path, class: "button is-primary" %>
+</div>

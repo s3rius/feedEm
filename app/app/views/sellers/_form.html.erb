@@ -1,37 +1,44 @@
 <%= form_with(model: seller, local: true) do |form| %>
   <% if seller.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(seller.errors.count, "error") %> prohibited this seller from being saved:</h2>
-
-      <ul>
-      <% seller.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+      <f-snack :errors="<%= seller.errors.full_messages.to_s %>"></f-snack>
     </div>
   <% end %>
 
   <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+    <div class="control has-icons-left has-icons-right">
+      <%= form.text_field :name, class: "input is-medium", placeholder: "Name" %>
+    </div>
   </div>
+
 
   <div class="field">
-    <%= form.label :likes %>
-    <%= form.number_field :likes %>
+    <div class="control has-icons-left has-icons-right">
+      <%= form.number_field :likes, class: "input is-medium", placeholder: "Likes" %>
+    </div>
   </div>
+
+
 
   <div class="field">
-    <%= form.label :dislikes %>
-    <%= form.number_field :dislikes %>
+    <div class="control has-icons-left has-icons-right">
+      <%= form.number_field :dislikes, class: "input is-medium", placeholder: "Dislikes"%>
+    </div>
   </div>
+
 
   <div class="field">
-    <%= form.label :auth_token %>
-    <%= form.text_field :auth_token %>
+    <div class="control has-icons-left has-icons-right">
+      <%= form.text_field :auth_token, class: "input is-medium", placeholder: "Token" %>
+    </div>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="field is-grouped">
+    <p class="control">
+      <%= form.submit class: "button is-primary" %>
+    </p>
+    <p class="control">
+      <%= link_to 'Back', sellers_path, class: "button is-light" %>
+    </p>
   </div>
 <% end %>

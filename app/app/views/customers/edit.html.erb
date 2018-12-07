@@ -1,6 +1,8 @@
-<h1>Editing Customer</h1>
+<div class="vue">
 
-<%= render 'form', customer: @customer %>
+  <f-navbar></f-navbar>
+  <f-title :title='"Edit customer"'></f-title>
 
-<%= link_to 'Show', @customer %> |
-<%= link_to 'Back', customers_path %>
+  <%= render 'form', customer: @customer %>
+
+</div>

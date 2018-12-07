@@ -1,42 +1,48 @@
-<%= form_with(model: customer, local: true) do |form| %>
+<%= form_with(model: customer, local: true, html: {class: 'form'}) do |form| %>
   <% if customer.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
-
-      <ul>
-      <% customer.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+      <f-snack :errors="<%= customer.errors.full_messages.to_s %>"></f-snack>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :username %>
-    <%= form.text_field :username %>
-  </div>
+  <div class="form">
+    <div class="field">
+      <div class="control has-icons-left has-icons-right">
+        <%= form.text_field :username, class: "input is-medium", placeholder: "Username" %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= form.label :password %>
-    <%= form.password_field :password %>
-  </div>
+    <div class="field">
+      <div class="control has-icons-left has-icons-right">
+        <%= form.password_field :password, class: "input is-medium", placeholder: "Password" %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= form.label :password_confirmation %>
-    <%= form.password_field :password_confirmation %>
-  </div>
+    <div class="field">
+      <div class="control has-icons-left has-icons-right">
+        <%= form.password_field :password_confirmation, class: "input is-medium", placeholder: "Password confirmation" %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
+    <div class="field">
+      <div class="control has-icons-left has-icons-right">
+        <%= form.text_field :name, class: "input is-medium", placeholder: "Name" %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= form.label :surname %>
-    <%= form.text_field :surname %>
-  </div>
+    <div class="field">
+      <div class="control has-icons-left has-icons-right">
+        <%= form.text_field :surname, class: "input is-medium", placeholder: "Surname" %>
+      </div>
+    </div>
 
-  <div class="actions">
-    <%= form.submit %>
+    <div class="field is-grouped">
+      <p class="control">
+        <%= form.submit class: "button is-primary" %>
+      </p>
+      <p class="control">
+        <%= link_to 'Back', customers_path, class: "button is-light" %>
+      </p>
+    </div>
   </div>
 <% end %>

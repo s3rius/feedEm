@@ -1,6 +1,8 @@
-<h1>Editing Card</h1>
+<div class="vue">
 
-<%= render 'form', card: @card %>
+  <f-navbar></f-navbar>
+  <f-title :title='"Edit card"'></f-title>
 
-<%= link_to 'Show', @card %> |
-<%= link_to 'Back', cards_path %>
+  <%= render 'form', card: @card %>
+
+</div>

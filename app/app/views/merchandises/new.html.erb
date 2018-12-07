@@ -1,5 +1,7 @@
-<h1>New Merchandise</h1>
+<div class="vue">
+  <f-navbar></f-navbar>
+  <f-title :title='"New merchandise"' :sub_title="''"></f-title>
 
-<%= render 'form', merchandise: @merchandise %>
+  <%= render 'form', merchandise: @merchandise %>
 
-<%= link_to 'Back', merchandises_path %>
+</div>
