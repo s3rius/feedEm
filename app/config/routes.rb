@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :customers
+  devise_for :admins
   get 'search_api/search'
   get 'welcome/merch'
   get 'welcome/sellers'
