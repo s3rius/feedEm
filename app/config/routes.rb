@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'seller_sessions/new'
+  get 'seller_sessions/create'
+  get 'seller_sessions/destroy'
   devise_for :customers
   devise_for :admins
   get 'search_api/search'
