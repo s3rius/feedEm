@@ -15,8 +15,20 @@
 </head>
 
 <body>
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+<div class="vue">
+  <% if customer_signed_in? %>
+    <b><%= csrf_meta_tag %></b>
+    <f-navbar :user="<%= current_customer.to_json %>" :token="'<%= session[:_csrf_token] %>'"></f-navbar>
+  <% else %>
+    <f-navbar></f-navbar>
+  <% end %>
+  <% if notice %>
+    <f-snack :errors="['<%= notice %>']"></f-snack>
+  <% end %>
+  <% if alert %>
+    <f-snack :errors="['<%= alert %>']"></f-snack>
+  <% end %>
 <%= yield %>
+</div>
 </body>
 </html>

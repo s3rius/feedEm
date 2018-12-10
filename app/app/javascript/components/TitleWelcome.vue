@@ -1,9 +1,9 @@
 <template>
     <div>
         <section class="hero is-medium" v-bind:style="{ 'background-image': 'url(' + image + ')' }">
-            <div class="hero-head">
-                <f-navbar :visible_search="visible"></f-navbar>
-            </div>
+            <!--<div class="hero-head">-->
+                <!--<f-navbar></f-navbar>-->
+            <!--</div>-->
             <div class="hero-body has-text-centered">
                 <f-search class="s-bar" :is_half="true" v-observe-visibility="searchBarObserver">
                 </f-search>
@@ -45,12 +45,11 @@
         data: function () {
             return {
                 image: "/img/sushi.jpg",
-                visible: false,
             }
         },
         methods: {
             searchBarObserver(isVisible, entry) {
-                this.visible = !isVisible;
+                this.$events.emit('hideSearchBar', !isVisible)
             },
             activeTab: function (index) {
                 console.log(`loaded index=${index}.\nLoaded tabIndex=${this.tabIndex}`);

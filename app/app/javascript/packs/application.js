@@ -10,6 +10,7 @@
 console.log("Vue app rendering is running.");
 import TurbolinksAdapter from "vue-turbolinks";
 import Vue from "vue/dist/vue.esm";
+import VueEvents from 'vue-events'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Buefy from 'buefy';
@@ -26,6 +27,7 @@ import FeedemMerchandiseCard from "../components/models/merchandise"
 
 Vue.use(TurbolinksAdapter);
 Vue.use(Buefy);
+Vue.use(VueEvents);
 Vue.use(VueAxios, axios);
 Vue.use(VueObserveVisibility);
 Vue.component("f-navbar", FeedEmNavBar);

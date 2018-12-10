@@ -1,11 +1,4 @@
-<div class="vue">
-
-  <% if notice %>
-    <f-snack :errors="['<%= notice %>']"></f-snack>
-  <% end %>
-
-  <f-navbar></f-navbar>
-  <f-title :title='"Admins"'></f-title>
+<f-title :title='"Admins"'></f-title>
 
   <h1>Admins</h1>
 
@@ -32,4 +25,3 @@
   <br>
 
   <%= link_to 'New Admin', new_admin_path, class: "button is-primary"%>
-</div>

@@ -66,12 +66,20 @@
                     <f-search></f-search>
                 </div>
                 <div class="navbar-item">
-                    <div class="buttons">
-                        <a class="button is-primary">
+                    <div class="buttons" v-if="user == null">
+                        <a class="button is-primary" href="/customers/sign_up">
                             <strong>Sign up</strong>
                         </a>
-                        <a class="button is-light">
+                        <a class="button is-light" href="/customers/sign_in">
                             Log in
+                        </a>
+                    </div>
+                    <div class="buttons" v-else>
+                        <a class="button is-primary" @click="logout">
+                            <strong>Sign out</strong>
+                        </a>
+                        <a class="button is-primary" :href="`customers/${user.id}`">
+                            Profile
                         </a>
                     </div>
                 </div>
@@ -89,18 +97,44 @@
             'f-search': FeedemSearch
         },
         props: {
-            visible_search: {
-                default: true
+            user: {
+                default: () => null
+            },
+            token: {
+                default: ''
             }
         },
         data: function () {
             return {
-                active: false
+                active: false,
+                visible_search: true
             }
+        },
+        mounted() {
+            this.$events.listen('hideSearchBar', eventData => {
+                this.visible_search = eventData
+            })
         },
         methods: {
             openBar: function (event) {
                 this.active = !this.active;
+            },
+            logout: function (event) {
+                let sign_out = this.axios.create({
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        "X-CSRF-Token": this.token,
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                });
+                sign_out.delete("/customers/sign_out").then((response) => {
+                    console.log("Logout successfully");
+                    location.reload();
+                }).catch((error) => {
+                    console.log("error found");
+                    console.log(error);
+                });
             }
         }
     }
