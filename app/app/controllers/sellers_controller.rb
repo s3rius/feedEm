@@ -1,5 +1,5 @@
 class SellersController < ApplicationController
-  before_action :set_seller, only: [:show, :edit, :update, :destroy]
+  before_action :set_seller, only: %(show edit update destroy)
 
   # GET /sellers
   # GET /sellers.json
@@ -9,8 +9,7 @@ class SellersController < ApplicationController
 
   # GET /sellers/1
   # GET /sellers/1.json
-  def show
-  end
+  def show; end
 
   # GET /sellers/new
   def new
@@ -18,8 +17,7 @@ class SellersController < ApplicationController
   end
 
   # GET /sellers/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /sellers
   # POST /sellers.json
@@ -62,13 +60,19 @@ class SellersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_seller
-      @seller = Seller.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def seller_params
-      params.require(:seller).permit(:name, :likes, :dislikes, :auth_token)
+  # Use callbacks to share common setup or constraints between actions.
+  def set_seller
+    @seller = Seller.find(params[:id])
+
+    if @seller
+      @seller_orders = Order.joins(:sellers)
+                            .where(seller_id: @seller.id)
     end
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def seller_params
+    params.require(:seller).permit(:name, :likes, :dislikes, :auth_token)
+  end
 end
