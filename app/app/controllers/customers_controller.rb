@@ -65,6 +65,12 @@ class CustomersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_customer
       @customer = Customer.find(params[:id])
+
+      if @customer
+        @customer_cards = Card.where(customer_id: @customer.id)
+        @customer_orders = Order.joins(:order_items)
+                                .where(customer_id: @customer.id)
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

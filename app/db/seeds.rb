@@ -38,15 +38,15 @@ sellers.each do |name|
 end
 
 cu_users = [
-  %w[s3rius 19216211 Pavel Kirilin],
-  %w[kolaer 32883212 Maxim Naumov],
-  %w[animeThug 12332122 Andrei Belousov]
+  %w[s3rius@shitmail.net 19216211 Pavel Kirilin],
+  %w[kolaer@shitmail.net 32883212 Maxim Naumov],
+  %w[animeThug@shitmail.net 12332122 Andrei Belousov]
 ]
 
-cu_users.each do |username, pass, name, surname|
-  Customer.create(username: username,
+cu_users.each do |email, pass, name, surname|
+  Customer.create(email: email,
                   name: name,
                   surname: surname,
-                  password_digest: pass)
+                  password: pass)
 end
 
