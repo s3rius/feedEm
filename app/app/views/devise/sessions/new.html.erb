@@ -1,26 +1,42 @@
-<h2>Log in</h2>
+<f-title :title='"Log in"' :subtitle="''"></f-title>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? -%>
+  <div class="form">
     <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+      <div class="control has-icons-left has-icons-right">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input is-medium", placeholder: "Email" %>
+      </div>
     </div>
-  <% end -%>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
+    <div class="field">
+      <div class="control has-icons-left has-icons-right">
+        <%= f.password_field :password, autocomplete: "current-password", class: "input is-medium", placeholder: "Password" %>
+      </div>
+    </div>
+
+    <% if devise_mapping.rememberable? -%>
+      <div class="field">
+        <b-checkbox
+          :value="true"
+          id="customer_remember_me"
+          name="customer[remember_me]">
+          Remember me
+        </b-checkbox>
+      </div>
+    <% end -%>
+
+    <div class="field is-grouped">
+      <p class="control">
+        <%= f.submit "Log in", class: "button is-primary" %>
+      </p>
+      <%= render "devise/shared/links" %>
+    </div>
 <% end %>
+</div>
+<script>
+    import BCheckbox from "buefy/src/components/checkbox/Checkbox";
 
-<%= render "devise/shared/links" %>
+    export default {
+        components: {BCheckbox}
+    }
+</script>
