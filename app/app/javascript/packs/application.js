@@ -22,7 +22,8 @@ import FeedEmNavBar from "../components/FeedemNavBar";
 import FeedemTitle from "../components/TitleSimple";
 import FeedemErrorSnack from "../components/SnackBar";
 import FeedemTitleWelcome from "../components/TitleWelcome";
-import FeedemMerchandiseCard from "../components/models/merchandise"
+import FeedemMerchandiseCard from "../components/models/merchandise";
+import FeedemAddCreditCard from "../components/forms/AddCard";
 
 
 Vue.use(TurbolinksAdapter);
@@ -35,6 +36,7 @@ Vue.component("f-title", FeedemTitle);
 Vue.component("f-snack", FeedemErrorSnack);
 Vue.component('f-welcome-title', FeedemTitleWelcome);
 Vue.component('f-merch-card', FeedemMerchandiseCard);
+Vue.component('f-add-credit-card', FeedemAddCreditCard);
 
 document.addEventListener("turbolinks:load", () => {
     const mv = new Vue({

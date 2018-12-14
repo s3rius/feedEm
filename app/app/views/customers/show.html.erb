@@ -1,17 +1,75 @@
-<p>
-  <strong>Email:</strong>
-  <%= @customer.email %>
-</p>
+<!--<section class="section">-->
+<!--  <div class="container">-->
+<!--    <div class="tile is-ancestor">-->
+<!--      <div class="tile is-8 is-parent">-->
+<!--        <article class="tile is-child green post">-->
+<!--          <!-- content here -->
+<!--        </article>-->
+<!--      </div>-->
 
-<p>
-  <strong>Name:</strong>
-  <%= @customer.name %>
-</p>
+<!--      <div class="tile is-vertical is-parent">-->
+<!--        <article class="tile is-child is-blue post">-->
+<!--          <p class="title">Add new Card</p>-->
+<!--          <f-add-credit-card :customer-id="'<%#= @customer.id %>'"></f-add-credit-card>-->
+<!--        </article>-->
+<!--        <article class="tile is-child gold post">-->
+<!--          <p class="title">Cards</p>-->
+<%# @customer_cards.each do |card| %>
+<!--            <p>-->
+<%#= card.to_json %>
+<!--            </p>-->
+<%# end %>
+<!--          <div>-->
+<!--            <p class="subtitle">Add new card</p>-->
+<!--          </div>-->
+<!--        </article>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</section>-->
 
-<p>
-  <strong>Surname:</strong>
-  <%= @customer.surname %>
-</p>
+<div class="tile is-ancestor">
+  <div class="tile is-vertical is-8">
+    <div class="tile">
+      <div class="tile is-parent is-vertical">
+        <article class="tile is-child box">
+          <p class="title"><%= @customer.name %></p>
+          <p class="subtitle">Top box</p>
+        </article>
+        <article class="tile is-child box">
+          <p class="title">Vertical tiles</p>
+          <p class="subtitle">Bottom box</p>
+        </article>
+      </div>
+      <div class="tile is-parent">
+        <article class="tile is-child box">
+          <p class="title">Middle box</p>
+          <p class="subtitle">With an image</p>
+          <figure class="image is-4by3">
+          </figure>
+        </article>
+      </div>
+    </div>
+    <div class="tile is-parent">
+      <article class="tile is-child box">
+        <p class="title">Wide column</p>
+        <p class="subtitle">Aligned with the right column</p>
+        <div class="content">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor
+            vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+  <div class="tile is-parent">
+    <article class="tile is-child box">
+      <div class="content">
+        <p class="title">Tall column</p>
+        <p class="subtitle">With even more content</p>
+        <div class="content">
 
-<%= link_to 'Edit', edit_customer_path(@customer) %> |
-<%= link_to 'Back', customers_path %>
+        </div>
+      </div>
+    </article>
+  </div>
+</div>
