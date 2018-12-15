@@ -1,5 +1,6 @@
 class SellersController < ApplicationController
-  before_action :set_seller, only: %(show edit update destroy)
+  before_action :set_seller, only: %i[show edit update destroy liked disliked]
+  before_action :authenticate_user_or_admin!
 
   # GET /sellers
   # GET /sellers.json
@@ -13,15 +14,27 @@ class SellersController < ApplicationController
 
   # GET /sellers/new
   def new
+    if not admin_signed_in?
+      redirect_to root_url, alert: 'Not enough power!'
+    end
+
     @seller = Seller.new
   end
 
   # GET /sellers/1/edit
-  def edit; end
+  def edit
+    if not admin_signed_in?
+      redirect_to root_url, alert: 'Not enough power!'
+    end
+  end
 
   # POST /sellers
   # POST /sellers.json
   def create
+    if not admin_signed_in?
+      redirect_to root_url, alert: 'Not enough power!'
+    end
+
     @seller = Seller.new(seller_params)
 
     respond_to do |format|
@@ -38,13 +51,25 @@ class SellersController < ApplicationController
   # PATCH/PUT /sellers/1
   # PATCH/PUT /sellers/1.json
   def update
+    if not (admin_signed_in? or (seller_logged_in? and @seller.id == current_seller.id and seller_params[:id].to_i == current_seller.id))
+      redirect_to root_url, alert: 'Not enough power!'
+    end
+
     respond_to do |format|
       if @seller.update(seller_params)
-        format.html { redirect_to @seller, notice: 'Seller was successfully updated.' }
-        format.json { render :show, status: :ok, location: @seller }
+        format.html do
+          redirect_to @seller,
+                      notice: 'Seller was successfully updated.'
+        end
+        format.json do
+          render :show, status: :ok, location: @seller
+        end
       else
         format.html { render :edit }
-        format.json { render json: @seller.errors, status: :unprocessable_entity }
+        format.json do
+          render json: @seller.errors,
+                 status: :unprocessable_entity
+        end
       end
     end
   end
@@ -52,9 +77,40 @@ class SellersController < ApplicationController
   # DELETE /sellers/1
   # DELETE /sellers/1.json
   def destroy
+    if not admin_signed_in?
+      redirect_to root_url, alert: 'Not enough power!'
+    end
+
     @seller.destroy
     respond_to do |format|
-      format.html { redirect_to sellers_url, notice: 'Seller was successfully destroyed.' }
+      format.html do
+        redirect_to sellers_url, notice:
+            'Seller was successfully destroyed.'
+      end
+      format.json { head :no_content }
+    end
+  end
+
+  def liked
+    @seller.likes += 1
+    @seller.save
+
+    respond_to do |format|
+      format.html do
+        redirect_back(fallback_location: root_url)
+      end
+      format.json { head :no_content }
+    end
+  end
+
+  def disliked
+    @seller.dislikes += 1
+    @seller.save
+
+    respond_to do |format|
+      format.html do
+        redirect_back(fallback_location: root_url)
+      end
       format.json { head :no_content }
     end
   end
@@ -74,5 +130,11 @@ class SellersController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def seller_params
     params.require(:seller).permit(:name, :likes, :dislikes, :auth_token)
+  end
+
+  def authenticate_user_or_admin!
+    if not (signed_in? or seller_logged_in?)
+      authenticate_customer!
+    end
   end
 end

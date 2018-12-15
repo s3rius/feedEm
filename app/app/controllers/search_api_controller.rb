@@ -33,6 +33,8 @@ class SearchApiController < ApplicationController
                   rank: merch.pg_search_rank }
     end
 
+    result = result.sort_by { |x| x[:rank] }.reverse
+
     result = { res: 'ok', data: result }
 
     render json: result

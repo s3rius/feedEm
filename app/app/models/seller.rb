@@ -8,4 +8,8 @@ class Seller < ApplicationRecord
                   against: :name,
                   using: { tsearch: { prefix: true } },
 		  ranked_by: ':trigram'
+
+    validates :name, presence: true
+
+    validates :name, length: { minimum: 3 }
 end

@@ -33,6 +33,7 @@ sellers.each do |name|
     Merchandise.create(name: m_name,
                        description: 'made from ' + m_desc,
                        price: m_price,
+                       cook_time: 20,
                        seller: seller)
   end
 end
@@ -48,5 +49,6 @@ cu_users.each do |email, pass, name, surname|
                   name: name,
                   surname: surname,
                   password: pass)
+  Admin.create(email: email, password: pass)
 end
 

@@ -8,31 +8,31 @@
 
     <div class="field">
       <div class="control has-icons-left has-icons-right">
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input is-medium", placeholder: "Email" %>
-      </div>
-    </div>
-
-    <div class="field">
-      <div class="control has-icons-left has-icons-right">
         <%= f.text_field :name, class: "input is-medium", placeholder: "Name" %>
       </div>
     </div>
 
     <div class="field">
       <div class="control has-icons-left has-icons-right">
-        <%= f.text_field :surname, class: "input is-medium", placeholder: "Surname" %>
+        <%= f.text_field :surname, class: "input is-medium", placeholder: "Surname", required: true %>
       </div>
     </div>
 
     <div class="field">
       <div class="control has-icons-left has-icons-right">
-        <%= f.password_field :password, autocomplete: "new-password", class: "input is-medium", placeholder: "Password" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input is-medium", placeholder: "Email", required: true %>
       </div>
     </div>
 
     <div class="field">
       <div class="control has-icons-left has-icons-right">
-        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input is-medium", placeholder: "Password confirmation" %>
+        <%= f.password_field :password, autocomplete: "new-password", class: "input is-medium", placeholder: "Password", required: true %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control has-icons-left has-icons-right">
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input is-medium", placeholder: "Password confirmation", required: true %>
       </div>
     </div>
 

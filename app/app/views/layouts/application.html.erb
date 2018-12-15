@@ -6,7 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
-
+  <meta name="super-token" content="<%= session[:_csrf_token] %>">
+  <meta name="turbolinks-cache-control" content="no-cache">
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,500,700,400italic|Material+Icons">
   <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -15,20 +16,25 @@
 </head>
 
 <body>
+<div class="pageloader is-left-to-right" id="pageloader">
+  <img src="/img/logo.png">
+  <span class="title">Feedem loading</span>
+</div>
 <div class="vue">
   <% if customer_signed_in? %>
     <b><%= csrf_meta_tag %></b>
-    <f-navbar :user="<%= current_customer.to_json %>" :token="'<%= session[:_csrf_token] %>'"></f-navbar>
+    <f-navbar :user="<%= current_customer.to_json %>" :is_admin_signed_in="<%= admin_signed_in? %>"></f-navbar>
   <% else %>
-    <f-navbar></f-navbar>
+    <f-navbar :is_admin_signed_in="<%= admin_signed_in? %>"></f-navbar>
   <% end %>
+
   <% if notice %>
     <f-snack :errors="['<%= notice %>']"></f-snack>
   <% end %>
   <% if alert %>
     <f-snack :errors="['<%= alert %>']"></f-snack>
   <% end %>
-<%= yield %>
+  <%= yield %>
 </div>
 </body>
 </html>

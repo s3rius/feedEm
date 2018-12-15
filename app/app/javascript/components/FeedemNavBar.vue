@@ -25,9 +25,9 @@
                     Documentation
                 </a>
 
-                <div class="navbar-item has-dropdown is-hoverable">
+                <div class="navbar-item has-dropdown is-hoverable" v-if="is_admin_signed_in">
                     <a class="navbar-link white">
-                        Models
+                        Admin control
                     </a>
 
                     <div class="navbar-dropdown">
@@ -54,6 +54,9 @@
                             Cards
                         </a>
                         <hr class="navbar-divider">
+                        <a @click="logoutAdmin" class="navbar-item">
+                            Turn admin mode off
+                        </a>
                         <a href="https://github.com/s3rius/feedEm/issues/new" class="navbar-item">
                             Report an issue
                         </a>
@@ -67,6 +70,7 @@
                 </div>
                 <div class="navbar-item">
                     <div class="buttons" v-if="user == null">
+                        <f-cart></f-cart>
                         <a class="button is-primary" href="/customers/sign_up">
                             <strong>Sign up</strong>
                         </a>
@@ -75,11 +79,12 @@
                         </a>
                     </div>
                     <div class="buttons" v-else>
+                        <f-cart :user="this.user"></f-cart>
+                        <a class="button is-primary" :href="`/customers/${user.id}`">
+                            Profile
+                        </a>
                         <a class="button is-primary" @click="logout">
                             <strong>Sign out</strong>
-                        </a>
-                        <a class="button is-primary" :href="`customers/${user.id}`">
-                            Profile
                         </a>
                     </div>
                 </div>
@@ -90,15 +95,20 @@
 
 <script>
     import FeedemSearch from "./searchbar/SearchBar";
+    import FeedemCart from './cart/Cart'
 
     export default {
         name: "FeedemNavBar",
         components: {
-            'f-search': FeedemSearch
+            'f-search': FeedemSearch,
+            'f-cart': FeedemCart
         },
         props: {
             user: {
                 default: () => null
+            },
+            is_admin_signed_in: {
+                default: false
             },
             token: {
                 default: ''
@@ -119,20 +129,50 @@
             openBar: function (event) {
                 this.active = !this.active;
             },
-            logout: function (event) {
+            logout(event) {
                 let sign_out = this.axios.create({
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest',
-                        "X-CSRF-Token": this.token,
+                        "X-CSRF-Token": window.token,
                         'Content-Type': 'application/json',
                         'Accept': 'application/json'
                     }
                 });
+                var component = this;
                 sign_out.delete("/customers/sign_out").then((response) => {
                     console.log("Logout successfully");
                     location.reload();
                 }).catch((error) => {
-                    console.log("error found");
+                    component.$snackbar.open({
+                        message: error,
+                        type: "is-error",
+                        position: 'is-bottom-left'
+                    });
+                    console.log(error);
+                });
+            },
+            logoutAdmin(event) {
+                let sign_out = this.axios.create({
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        "X-CSRF-Token": window.token,
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                });
+                var component = this;
+                sign_out.delete("/admins/sign_out").then((response) => {
+                    component.$snackbar.open({
+                        message: "Logout successfully",
+                        type: "is-success",
+                        position: 'is-bottom-left'
+                    });
+                }).catch((error) => {
+                    component.$snackbar.open({
+                        message: "Can't logout as admin.",
+                        type: "is-error",
+                        position: 'is-bottom-left'
+                    });
                     console.log(error);
                 });
             }

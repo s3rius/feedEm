@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'cart/show'
+  get 'search/show'
+  get 'search/search'
   get 'seller_sessions/new'
   get 'seller_sessions/create'
   get 'seller_sessions/destroy'
@@ -10,6 +13,8 @@ Rails.application.routes.draw do
   resources :merchandises
   resources :order_items
   resources :orders
+  post '/sellers/liked/:id', to: 'sellers#liked'
+  post '/sellers/disliked/:id', to: 'sellers#disliked'
   resources :sellers
   resources :cards
   resources :admins

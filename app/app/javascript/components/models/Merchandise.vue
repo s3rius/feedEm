@@ -12,7 +12,7 @@
             <div class="content">
                 {{merchandise.description}}
                 <br>
-                <span>Made by: {{merchandise.seller.name}} with <b-icon icon="heart"></b-icon></span>
+                <span>Made by: {{merchandise.seller.name}}</span>
                 <br>
                 <span>Cost: ${{merchandise.price}}</span>
             </div>
@@ -33,7 +33,10 @@
         name: "merchandise",
         components: {BIcon},
         props: {
-            merchandise: () => {
+            merchandise: {
+                default: function () {
+                    return {}
+                }
             }
         },
         methods: {
@@ -42,25 +45,7 @@
             },
             addToCart: function () {
                 let params = new URLSearchParams();
-                params.append('merch_id', this.merchandise.id);
-                this.axios.post('/api/v1/addToCart', params)
-                    .then(function (response) {
-                            this.$snackbar.open({
-                                message: `Error found: Can't add merchandise.`,
-                                type: 'is-error',
-                                position: 'is-bottom-left'
-                            });
-                        }
-                    )
-                    .catch(function (err) {
-                            console.error(err);
-                            this.$snackbar.open({
-                                message: `Error found: Can't add merchandise.`,
-                                type: 'is-error',
-                                position: 'is-bottom-left'
-                            });
-                        }
-                    )
+                this.$events.emit('addMerchandiseToCart', this.merchandise)
             }
         }
     }

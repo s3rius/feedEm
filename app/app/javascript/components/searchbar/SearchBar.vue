@@ -34,6 +34,7 @@
 <script>
     import BIcon from "buefy/src/components/icon/Icon";
     import SearchItem from './ItemTemplate'
+
     const VueSimpleSuggest = require('vue-simple-suggest/dist/cjs');
     import BInput from "buefy/src/components/input/Input";
 
@@ -65,7 +66,7 @@
         },
         methods: {
             updateItems(text) {
-                return this.axios.get(`search_api/search?query=${text}&limit=5`)
+                return this.axios.get(`/search_api/search?query=${text}&limit=5`)
                     .then((response) => {
                         return response.data.data
                     });
@@ -79,7 +80,7 @@
                         position: 'is-bottom-left'
                     });
                 } else {
-                    Turbolinks.visit(`/search?query=${query}`);
+                    Turbolinks.visit(`/search/search?query=${query}`);
                 }
             }
         }
