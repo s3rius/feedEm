@@ -1,6 +1,60 @@
+require 'date'
+
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user_or_admin!
+
+  def add_order
+    if customer_signed_in?
+      customer_card = params[:card]
+      customer_order = params[:order]
+
+      if customer_card.nil? or customer_order.nil?
+        return render json: {status: 'error'}, status: 403
+      end
+
+      customer_card = customer_card.to_i
+
+      if current_customer.id != Card.find(customer_card).customer_id
+        return render json: {status: 'error'}, status: 401
+      end
+
+      customer_order_items = customer_order[:items]
+      seller_id = customer_order[:seller_id]
+
+      total_time = customer_order_items.map { |item|
+        item[:cook_time].to_i
+      }.inject(:+)
+
+      end_time = total_time.minutes.from_now
+
+      ActiveRecord::Base.transaction do
+        customer_order = Order.create! customer_id: current_customer.id, time: end_time, card_id: customer_card, status: "open", seller_id: seller_id
+
+        customer_order_items.map { |item|
+          OrderItem.create! order: customer_order, merchandise_id: item[:id].to_i, quantity: item[:quantity].to_i
+        }
+      end
+
+      return render json: {status: 'ok'}
+    elsif admin_signed_in?
+      return redirect_to root_url, alert: 'Admins can not order'
+    else
+      return redirect_to root_url, alert: 'Sellers can not order'
+    end
+  end
+
+  def order_ready
+    if customer_signed_in?
+      return redirect_to root_url, alert: 'Customers can not close orders'
+    else
+      if admin_signed_in? or @order.seller.id == current_seller.id
+
+      else
+        return redirect_to root_url, alert: 'Not enough power!'
+      end
+    end
+  end
 
   # GET /orders
   # GET /orders.json

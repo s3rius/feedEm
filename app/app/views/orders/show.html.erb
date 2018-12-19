@@ -8,5 +8,10 @@
   <%= @order.time %>
 </p>
 
+<p>
+	<strong>Card:</strong>
+	<%= @order.card_id %>
+</p>
+
 <%= link_to 'Edit', edit_order_path(@order) %> |
 <%= link_to 'Back', orders_path %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_09_102221) do
+ActiveRecord::Schema.define(version: 2018_12_19_173022) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -74,7 +74,12 @@ ActiveRecord::Schema.define(version: 2018_12_09_102221) do
     t.datetime "time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "card_id"
+    t.string "status"
+    t.bigint "seller_id"
+    t.index ["card_id"], name: "index_orders_on_card_id"
     t.index ["customer_id"], name: "index_orders_on_customer_id"
+    t.index ["seller_id"], name: "index_orders_on_seller_id"
   end
 
   create_table "pg_search_documents", force: :cascade do |t|
@@ -101,5 +106,7 @@ ActiveRecord::Schema.define(version: 2018_12_09_102221) do
   add_foreign_key "merchandises", "sellers"
   add_foreign_key "order_items", "merchandises"
   add_foreign_key "order_items", "orders"
+  add_foreign_key "orders", "cards"
   add_foreign_key "orders", "customers"
+  add_foreign_key "orders", "sellers"
 end

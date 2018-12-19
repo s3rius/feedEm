@@ -2,7 +2,7 @@
     <form action="/cards" method="post">
         <input name="utf8" type="hidden" value="✓">
         <input type="hidden" name="authenticity_token" :value="get_token()">
-        <b-field v-if="this.customerId == null">
+        <b-field v-if="this.customerId === null">
             <b-input placeholder="Customer id"
                      name="card[customer_id]"
                      icon="user"
@@ -60,9 +60,6 @@
         components: {BInput, BField},
         props: {
             customerId: {
-                default: null
-            },
-            token: {
                 default: null
             }
         },

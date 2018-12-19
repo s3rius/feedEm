@@ -14,7 +14,12 @@
                 <br>
             </div>
         </div>
-        <footer class="card-footer">
+        <footer class="card-footer" v-if="this.order !== null">
+            <a @click="useCard" class="card-footer-item">
+                <b-icon icon="check"></b-icon>
+                Use card</a>
+        </footer>
+        <footer class="card-footer" v-else>
             <a @click="removeCard" class="card-footer-item">
                 <b-icon icon="delete"></b-icon>
                 Remove</a>
@@ -30,6 +35,9 @@
         name: "CreditCard",
         components: {BIcon},
         props: {
+            order: {
+                default: () => null
+            },
             card: {
                 default: function () {
                     return {}
@@ -44,8 +52,30 @@
         methods: {
             removeCard() {
                 this.hidden = true;
-                let token = window.token;
                 let axi_delete = this.axios.create({
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        "X-CSRF-Token": window.token,
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                });
+                axi_delete.delete(`/cards/${this.card.id}`)
+                    .then(function (response) {
+                        console.log(response);
+                    });
+            },
+            getLink() {
+                return `/cards/${this.card.id}`
+            },
+            useCard(){
+                let component = this;
+                let event_data = {
+                    card: this.card.id,
+                    order: this.order
+                }
+                let token = window.token;
+                let axi_pay = this.axios.create({
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest',
                         "X-CSRF-Token": token,
@@ -53,13 +83,18 @@
                         'Accept': 'application/json'
                     }
                 });
-                axi_delete.delete(`/cards/${this.card.id}`)
-                    .then(function (response) {
-                        console.log(response)
+                axi_pay.post('/api/v1/addOrder',event_data).
+                    then(response => {
+                        console.log(response);
+                        component.$events.emit('cardUsed', event_data );
+                    }).catch(error => {
+                        console.log(error);
+                        component.$snackbar.open({
+                            message: "Can't process order.",
+                            type: "is-danger",
+                            position: 'is-bottom-left'
+                        });
                     })
-            },
-            getLink() {
-                return `/cards/${this.card.id}`
             }
         }
     }

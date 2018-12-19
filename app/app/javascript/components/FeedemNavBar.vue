@@ -50,11 +50,8 @@
                         <a href="/order_items" class="navbar-item">
                             Order items
                         </a>
-                        <a href="/cards" class="navbar-item">
-                            Cards
-                        </a>
                         <hr class="navbar-divider">
-                        <a @click="logoutAdmin" class="navbar-item">
+                        <a @click="logoutAdmin" class="navbar-item" >
                             Turn admin mode off
                         </a>
                         <a href="https://github.com/s3rius/feedEm/issues/new" class="navbar-item">
@@ -145,7 +142,7 @@
                 }).catch((error) => {
                     component.$snackbar.open({
                         message: error,
-                        type: "is-error",
+                        type: "is-danger",
                         position: 'is-bottom-left'
                     });
                     console.log(error);
@@ -167,10 +164,11 @@
                         type: "is-success",
                         position: 'is-bottom-left'
                     });
+                    component.is_admin_signed_in = false;
                 }).catch((error) => {
                     component.$snackbar.open({
                         message: "Can't logout as admin.",
-                        type: "is-error",
+                        type: "is-danger",
                         position: 'is-bottom-left'
                     });
                     console.log(error);

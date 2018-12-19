@@ -1,1 +1,97 @@
+<% if admin_signed_in? or (seller_logged_in? and @current_seller == @seller.id) %>
+<%# Visible for admins or this seller %>
+<div class="tile is-ancestor">
+  <div class="tile is-vertical is-8">
+    <div class="tile">
+      <div class="tile is-parent is-vertical">
+        <article class="tile is-child box">
+          <p class="title">Profile</p>
+          Welcome back
+          <span> <%= @seller.name %></span>
+        </article>
+        <article class="tile is-child box">
+          <p class="title">Vertical tiles</p>
+          <p class="subtitle">Bottom box</p>
+        </article>
+      </div>
+      <div class="tile is-parent">
+      </div>
+    </div>
+    <div class="tile is-parent">
+      <article class="tile is-child box">
+        <p class="title">My orders</p>
+        <div class="content">
+          <% @seller_orders.each do |order| %>
+          	<%= order %>
+          <% end %>
+        </div>
+      </article>
+    </div>
+  </div>
+  <div class="tile is-parent is-vertical">
+      <article class="tile is-child box">
+      <div class="content">
+        <p class="title">My raiting</p>
+        <div class="content">
+          Likes: <%= @seller.likes %> <br>
+          Dislikes: <%= @seller.dislikes %>
+        </div>
+      </div>
+    </article>
+    <article class="tile is-child box">
+      <div class="content">
+        <p class="title">My merchandises</p>
+        <div class="content">
+          <% @seller_merchandises.each do |merchandise| %>
+          	<f-merch-card :merchandise="<%= merchandise.to_json(:include => :seller, :except => [:created_at, :updated_at]) %>"></f-merch-card>
+          <% end %>
+        </div>
+      </div>
+    </article>
+  </div>
+</div>
+<% else %>
+<%# Visible for others %>
+<div class="tile is-ancestor">
+  <div class="tile is-vertical is-8">
+    <div class="tile">
+      <div class="tile is-parent is-vertical">
+        <article class="tile is-child box">
+          <p class="title">Profile</p>
+          <span> <%= @seller.name %></span>
+        </article>
+        <article class="tile is-child box">
+          <p class="title">Vertical tiles</p>
+          <p class="subtitle">Bottom box</p>
+        </article>
+      </div>
+      <div class="tile is-parent">
+        <article class="tile is-child box">
 
+        </article>
+      </div>
+    </div>
+    <div class="tile is-parent">
+      <article class="tile is-child box">
+        <p class="title">Seller's merchandises</p>
+        <div class="content">
+          <% @seller_merchandises.each do |merchandise| %>
+          	<%= merchandise %>
+          <% end %>
+        </div>
+      </article>
+    </div>
+  </div>
+  <div class="tile is-parent is-vertical">
+      <article class="tile is-child box">
+      <div class="content">
+        <p class="title">Seller's raiting</p>
+        <div class="content">
+          Likes: <%= @seller.likes %> <br>
+          Dislikes: <%= @seller.dislikes %>
+        </div>
+      </div>
+    </article>
+  </div>
+</div>
+<% end %>

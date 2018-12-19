@@ -1,6 +1,5 @@
 class CustomersController < ApplicationController
   before_action :set_customer, only: %i[show edit update destroy]
-  before_action :authenticate_customer!, only: %i[show edit update destroy]
   before_action :authenticate_user_or_admin!
 
   # GET /customers
@@ -95,8 +94,16 @@ class CustomersController < ApplicationController
         }
       }
 
-      @customer_orders = Order.joins(:order_items)
-                             .where(customer_id: @customer.id)
+      @customer_orders = [] 
+
+      Order.where(customer_id: @customer.id).each { |order| 
+        @customer_orders << {
+          seller_id: order.seller.id,
+          seller_name: order.seller.name,
+          status: order.status,
+          items: OrderItem.select("*").where(order_id: order.id).joins(:merchandise)
+        }
+      }
     end
   end
 
@@ -106,7 +113,7 @@ class CustomersController < ApplicationController
   end
 
   def authenticate_user_or_admin!
-    if not signed_in?
+    if not (admin_signed_in? or customer_signed_in?)
       authenticate_customer!
     end
   end

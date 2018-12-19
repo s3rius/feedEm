@@ -15,8 +15,10 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Buefy from 'buefy';
 import 'buefy/dist/buefy.css';
-import 'bulma-extensions/bulma-badge/dist/css/bulma-badge.min.css'
-import 'bulma-extensions/bulma-pageloader/dist/css/bulma-pageloader.min.css'
+import 'bulma-extensions/bulma-badge/dist/css/bulma-badge.min.css';
+import 'bulma-extensions/bulma-pageloader/dist/css/bulma-pageloader.min.css';
+import 'bulma-extensions/bulma-steps/dist/css/bulma-steps.min.css';
+import 'bulma-extensions/bulma-steps/dist/js/bulma-steps';
 import 'vue-resize/dist/vue-resize.css';
 import '@mdi/font/css/materialdesignicons.min.css';
 import VueObserveVisibility from 'vue-observe-visibility';
@@ -28,6 +30,7 @@ import FeedemMerchandiseCard from "../components/models/Merchandise";
 import FeedemSellerCard from "../components/models/Seller";
 import FeedemAddCreditCard from "../components/forms/AddCard";
 import FeedemCreditCard from "../components/models/CreditCard";
+import FeedemOrderItem from '../components/models/OrderItem'
 
 
 Vue.use(TurbolinksAdapter);
@@ -43,6 +46,7 @@ Vue.component('f-merch-card', FeedemMerchandiseCard);
 Vue.component('f-seller-card', FeedemSellerCard);
 Vue.component('f-credit-card', FeedemCreditCard);
 Vue.component('f-add-credit-card', FeedemAddCreditCard);
+Vue.component('f-order-item', FeedemOrderItem);
 
 document.addEventListener("turbolinks:click", () => {
     window.loaded = false;

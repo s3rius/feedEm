@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  match 'api/v1/addOrder' => 'orders#add_order', :via => :post
+  match 'api/v1/readyOrder' => 'orders#order_ready', :via => :post
+  get 'api/v1/getMyCards', to: 'cards#get_customer_cards'
   get 'cart/show'
   get 'search/show'
   get 'search/search'

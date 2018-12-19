@@ -44,7 +44,6 @@
                 return `/merchandises/${this.merchandise.id}`
             },
             addToCart: function () {
-                let params = new URLSearchParams();
                 this.$events.emit('addMerchandiseToCart', this.merchandise)
             }
         }

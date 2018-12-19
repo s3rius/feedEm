@@ -1,6 +1,6 @@
 class SellersController < ApplicationController
   before_action :set_seller, only: %i[show edit update destroy liked disliked]
-  before_action :authenticate_user_or_admin!
+  before_action :authenticate_user_or_admin!, only: %i[index edit new edit create update destroy liked disliked]
 
   # GET /sellers
   # GET /sellers.json
@@ -122,8 +122,17 @@ class SellersController < ApplicationController
     @seller = Seller.find(params[:id])
 
     if @seller
-      @seller_orders = Order.joins(:sellers)
-                            .where(seller_id: @seller.id)
+      @seller_orders = [] 
+
+      Order.where(seller_id: @seller.id).each { |order| 
+        @seller_orders << {
+          customer_id: order.customer.id,
+          status: order.status,
+          items: OrderItem.where(order_id: order.id)
+        }
+      }
+
+      @seller_merchandises = Merchandise.where(seller_id: @seller.id)
     end
   end
 

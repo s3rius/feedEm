@@ -1,10 +1,4 @@
-<div class="vue">
-  <% if notice %>
-    <f-snack :errors="['<%= notice %>']"></f-snack>
-  <% end %>
-
-  <f-navbar></f-navbar>
-  <f-title :title='"Order items"'></f-title>
+ <f-title :title='"Order items"'></f-title>
 
   <table class="table is-fullwidth">
   <thead>
@@ -33,4 +27,3 @@
 <br>
 
 <%= link_to 'New Order Item', new_order_item_path, class: "button is-primary" %>
-</div>

@@ -2,6 +2,22 @@ class CardsController < ApplicationController
   before_action :set_card, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user_or_admin!
 
+  def get_customer_cards
+    if not customer_signed_in?
+      return render json: {status: 'error'}, status: 403
+    end
+
+    cards = Card.where(customer_id: current_customer.id)
+
+    result = []
+
+    cards.each { |card|
+      result << { id: card.id, card: card.number.chars.last(4).join() }
+    }
+
+    render json: {cards: result}
+  end
+
   # GET /cards
   # GET /cards.json
   def index
@@ -24,6 +40,10 @@ class CardsController < ApplicationController
 
   # GET /cards/new
   def new
+    if not admin_signed_in?
+      return redirect_to root_url, alert: 'Not enough power!'
+    end
+    
     @card = Card.new
   end
 
@@ -42,13 +62,14 @@ class CardsController < ApplicationController
     end
 
     @card = Card.new(card_params)
+    already_exists = Card.exists?(number: card_params[:number].to_i)
 
     respond_to do |format|
-      if @card.save
-        format.html { redirect_to @card, notice: 'Card was successfully created.' }
+      if (not already_exists) and @card.save
+        format.html { redirect_to @card.customer, notice: 'Card was successfully created.' }
         format.json { render :show, status: :created, location: @card }
       else
-        format.html { render :new }
+        format.html { redirect_to @card.customer, alert: 'Error while creating card.' }
         format.json { render json: @card.errors, status: :unprocessable_entity }
       end
     end
@@ -61,12 +82,14 @@ class CardsController < ApplicationController
       return redirect_to root_url, alert: 'Not enough power!'
     end
 
+    already_exists = Card.exists?(number: card_params[:number].to_i)
+
     respond_to do |format|
-      if @card.update(card_params)
-        format.html { redirect_to @card, notice: 'Card was successfully updated.' }
+      if (not already_exists) and @card.update(card_params)
+        format.html { redirect_to @card.customer, notice: 'Card was successfully updated.' }
         format.json { render :show, status: :ok, location: @card }
       else
-        format.html { render :edit }
+        format.html { redirect_to @card.customer, alert: 'Error while updating card.' }
         format.json { render json: @card.errors, status: :unprocessable_entity }
       end
     end

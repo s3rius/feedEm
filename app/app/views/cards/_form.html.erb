@@ -4,8 +4,7 @@
       <f-error-snack :errors="<%= card.errors.full_messages.to_s %>"></f-error-snack>
     </div>
   <% end %>
-
-  <div class="field">
+<div class="field">
     <div class="control has-icons-left has-icons-right">
       <%= form.text_field :customer_id, class: "input is-medium", placeholder: "Customer id" %>
     </div>
@@ -32,9 +31,8 @@
         </b-datepicker>
     </div>
   </div>
-
   <div class="field is-grouped">
-    <p class="control">
+<p class="control">
       <%= form.submit class: "button is-primary" %>
     </p>
     <p class="control">

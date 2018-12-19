@@ -68,7 +68,7 @@
                         console.log(error);
                         component.$snackbar.open({
                             message: "Can't add like for this seller",
-                            type: "is-error",
+                            type: "is-danger",
                             position: 'is-bottom-left'
                         });
                     });
@@ -93,7 +93,7 @@
                         console.log(error);
                         component.$snackbar.open({
                             message: "Can't add dislike for this seller",
-                            type: "is-error",
+                            type: "is-danger",
                             position: 'is-bottom-left'
                         });
                     });
