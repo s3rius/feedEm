@@ -66,13 +66,21 @@
                     <f-search></f-search>
                 </div>
                 <div class="navbar-item">
-                    <div class="buttons" v-if="user == null">
+                    <div class="buttons" v-if="user == null && seller == null">
                         <f-cart></f-cart>
                         <a class="button is-primary" href="/customers/sign_up">
                             <strong>Sign up</strong>
                         </a>
                         <a class="button is-light" href="/customers/sign_in">
                             Log in
+                        </a>
+                    </div>
+                    <div class="buttons" v-else-if="seller != null">
+                        <a class="button is-primary" :href="`/sellers/${seller.id}`">
+                            <strong>Manage shop</strong>
+                        </a>
+                        <a class="button is-light" @click="logoutSeller">
+                            Sign out
                         </a>
                     </div>
                     <div class="buttons" v-else>
@@ -109,6 +117,9 @@
             },
             token: {
                 default: ''
+            },
+            seller:{
+                default: () => null
             }
         },
         data: function () {
@@ -142,6 +153,27 @@
                 }).catch((error) => {
                     component.$snackbar.open({
                         message: error,
+                        type: "is-danger",
+                        position: 'is-bottom-left'
+                    });
+                    console.log(error);
+                });
+            },
+            logoutSeller(event){
+                let sign_out = this.axios.create({
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        "X-CSRF-Token": window.token,
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                });
+                var component = this;
+                sign_out.delete("/seller_sessions/destroy").then((response) => {
+                    location.reload();
+                }).catch((error) => {
+                    component.$snackbar.open({
+                        message: "Can't logout as seller.",
                         type: "is-danger",
                         position: 'is-bottom-left'
                     });

@@ -31,7 +31,7 @@ import FeedemSellerCard from "../components/models/Seller";
 import FeedemAddCreditCard from "../components/forms/AddCard";
 import FeedemCreditCard from "../components/models/CreditCard";
 import FeedemOrderItem from '../components/models/OrderItem'
-
+import FeedemSellerRating from '../components/models/SellerRating'
 
 Vue.use(TurbolinksAdapter);
 Vue.use(Buefy);
@@ -47,6 +47,7 @@ Vue.component('f-seller-card', FeedemSellerCard);
 Vue.component('f-credit-card', FeedemCreditCard);
 Vue.component('f-add-credit-card', FeedemAddCreditCard);
 Vue.component('f-order-item', FeedemOrderItem);
+Vue.component('f-seller-rating', FeedemSellerRating);
 
 document.addEventListener("turbolinks:click", () => {
     window.loaded = false;

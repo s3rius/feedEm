@@ -10,7 +10,7 @@
   </p>
 <% end -%>
 
-<%- if request.fullpath == "/admins/sign_in" %>
+<%- if request.fullpath != "/customers/sign_in" %>
   <p class="control">
     <a class="button is-primary" href="/customers/sign_in">
       As customer
@@ -18,10 +18,18 @@
   </p>
 <% end -%>
 
-<%- if request.fullpath == "/customers/sign_in" %>
+<%- if request.fullpath != "/admins/sign_in" %>
   <p class="control">
     <a class="button is-primary" href="/admins/sign_in">
       As admin
+    </a>
+  </p>
+<% end -%>
+
+<%- if request.fullpath != "/seller_sessions/new" %>
+  <p class="control">
+    <a class="button is-primary" href="/seller_sessions/new">
+      As seller
     </a>
   </p>
 <% end -%>

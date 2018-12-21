@@ -6,17 +6,26 @@
   <% end %>
 
   <div class="form">
+    <% if admin_signed_in? %>
     <div class="field">
       <div class="control has-icons-left has-icons-right">
         <%= form.text_field :seller_id, class: "input is-medium", placeholder: "Seller id" %>
       </div>
     </div>
+    <% else %>
+    <div class="field">
+      <div class="control has-icons-left has-icons-right">
+        <input type="hidden" value="<%= current_seller.id %>" name="merchandise[seller_id]" id="merchandise_seller_id">
+      </div>
+    </div>
+    <% end %>
 
     <div class="field">
       <div class="control has-icons-left has-icons-right">
         <%= form.text_field :name, class: "input is-medium", placeholder: "Name" %>
       </div>
     </div>
+
 
     <div class="field">
       <div class="control has-icons-left has-icons-right">
@@ -26,14 +35,14 @@
 
     <div class="field">
       <div class="control has-icons-left has-icons-right">
-        <%= form.number_field :price, class: "input is-medium", placeholder: "Price" %>
+        <%= form.number_field :price, class: "input is-medium", placeholder: "Price (Cents)" %>
       </div>
     </div>
 
 
     <div class="field">
       <div class="control has-icons-left has-icons-right">
-        <%= form.number_field :cook_time, class: "input is-medium", placeholder: "Cook time" %>
+        <%= form.number_field :cook_time, class: "input is-medium", placeholder: "Cook time (minutes)" %>
       </div>
     </div>
 

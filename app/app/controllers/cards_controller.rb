@@ -33,7 +33,7 @@ class CardsController < ApplicationController
   # GET /cards/1
   # GET /cards/1.json
   def show
-    if not (admin_signed_in? or @card.customer_id == current_customer.id)
+    if not (admin_signed_in? or @card.customer.id == current_customer.id)
       return redirect_to root_url, alert: 'Not enough power!'
     end
   end
@@ -49,7 +49,7 @@ class CardsController < ApplicationController
 
   # GET /cards/1/edit
   def edit
-    if not (admin_signed_in? or (customer_signed_in? and @card.customer_id == current_customer.id))
+    if not (admin_signed_in? or (customer_signed_in? and @card.customer.id == current_customer.id))
       return redirect_to root_url, alert: 'Not enough power!'
     end
   end
@@ -98,7 +98,7 @@ class CardsController < ApplicationController
   # DELETE /cards/1
   # DELETE /cards/1.json
   def destroy
-    if not (admin_signed_in? or (customer_signed_in? and @card.customer_id == current_customer.id))
+    if not (admin_signed_in? or (customer_signed_in? and @card.customer.id == current_customer.id))
       return redirect_to root_url, alert: 'Not enough power!'
     end
 

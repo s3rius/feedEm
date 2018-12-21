@@ -13,7 +13,7 @@
                 <ul>
                     <li>Seller: {{item.seller.name}}</li>
                     <li>Quantity: {{item.quantity}}</li>
-                    <li>Cost: ${{item.price}}</li>
+                    <li>Cost: ${{item.price/100}}</li>
                 </ul>
             </div>
         </div>

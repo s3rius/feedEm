@@ -101,6 +101,7 @@ class CustomersController < ApplicationController
           seller_id: order.seller.id,
           seller_name: order.seller.name,
           status: order.status,
+          time: order.time,
           items: OrderItem.select("*").where(order_id: order.id).joins(:merchandise)
         }
       }

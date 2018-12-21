@@ -15,6 +15,10 @@ class OrdersController < ApplicationController
 
       customer_card = customer_card.to_i
 
+      if customer_card <= 0
+        return render json: {status: 'error'}, status: 403
+      end
+
       if current_customer.id != Card.find(customer_card).customer_id
         return render json: {status: 'error'}, status: 401
       end
@@ -46,13 +50,66 @@ class OrdersController < ApplicationController
 
   def order_ready
     if customer_signed_in?
-      return redirect_to root_url, alert: 'Customers can not close orders'
-    else
-      if admin_signed_in? or @order.seller.id == current_seller.id
+      return redirect_to root_url, alert: 'Customers can not set order status to ready'
+    elsif admin_signed_in? or seller_logged_in?
+      order_id = params[:order_id]
 
-      else
-        return redirect_to root_url, alert: 'Not enough power!'
+      if order_id.nil?
+        return render json: {status: 'error'}, status: 403
       end
+
+      order_id = order_id.to_i
+
+      if order_id <= 0
+        return render json: {status: 'error'}, status: 403
+      end
+
+      order = Order.find(order_id)
+
+      if not (admin_signed_in? or order.seller.id == current_seller.id)
+        return render json: {status: 'error'}, status: 401
+      end
+
+      if order.status != "open"
+        return render json: {status: 'error'}, status: 403
+      end
+
+      order.status = "ready"
+      orver.save!
+    else
+        return redirect_to root_url, alert: 'Not enough power!'
+    end
+  end
+
+  def order_close
+    order_id = params[:order_id]
+
+    if order_id.nil?
+      return render json: {status: 'error'}, status: 403
+    end
+
+    order_id = order_id.to_i
+
+    if order_id <= 0
+      return render json: {status: 'error'}, status: 403
+    end
+
+    order = Order.find(order_id)
+
+    if admin_signed_in?
+      order.status = "closed"
+    elsif customer_signed_in?
+      if order.customer.id != current_customer.id
+        return render json: {status: 'error'}, status: 401
+      end
+
+      order.status = "closed"
+    elsif seller_logged_in?
+      if order.seller.id != current_seller.id
+        return render json: {status: 'error'}, status: 401
+      end
+
+      order.status = "closed"
     end
   end
 

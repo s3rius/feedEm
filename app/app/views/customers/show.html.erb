@@ -13,21 +13,19 @@
     </div>
   </div>
   <div class="tile is-parent is-vertical">
-      <article class="tile is-child box">
+      <article class="tile is-child">
       <div class="content">
-        <p class="title">Add new card</p>
-        <div class="content">
-          <f-add-credit-card :customer-id="'<%= @customer.id %>'"></f-add-credit-card>
+        <div class="box">
+          <p class="title">Add new card</p>
+          <div class="content">
+            <f-add-credit-card :customer-id="'<%= @customer.id %>'"></f-add-credit-card>
+          </div>
         </div>
-      </div>
-    </article>
-    <article class="tile is-child box">
-      <div class="content">
-        <p class="title">My Cards</p>
-        <div class="content">
-          <% @customer_cards.each do |card| %>
-            <f-credit-card :card="<%= card.to_json %>"></f-credit-card>
-          <% end %>
+        <div class="box">
+            <p class="title">My Cards</p>
+            <% @customer_cards.each do |card| %>
+              <f-credit-card :card="<%= card.to_json %>"></f-credit-card>
+            <% end %>
         </div>
       </div>
     </article>

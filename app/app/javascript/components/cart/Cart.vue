@@ -6,8 +6,8 @@
         </button>
         <div id="quickviewCart" class="quickview">
             <header class="quickview-header">
-                <p class="title">My cart </p>
-                <p>Total: ${{this.total}}</p>
+                <p class="title">My cart</p>
+                <p>Total: ${{this.total/100}}</p>
                 <span class="delete" data-dismiss="quickview"></span>
             </header>
 
@@ -123,6 +123,7 @@
                 if (item.quantity < 1) {
                     this.items.splice(index, 1);
                     localStorage.removeItem(eventData.id);
+                    this.item_count -= 1;
                 } else {
                     this.$set(this.items, index, item);
                     localStorage.setItem(eventData.id, JSON.stringify(item));
@@ -160,6 +161,7 @@
             clear(event) {
                 this.total = 0;
                 this.items.splice(0);
+                this.item_count = 0;
                 localStorage.clear();
                 console.log("Cart was cleared.")
             },

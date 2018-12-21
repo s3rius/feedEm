@@ -22,8 +22,9 @@
 </div>
 <div class="vue">
   <% if customer_signed_in? %>
-    <b><%= csrf_meta_tag %></b>
-    <f-navbar :user="<%= current_customer.to_json %>" :is_admin_signed_in="<%= admin_signed_in? %>"></f-navbar>
+    <f-navbar :user="<%= current_customer.to_json %>"   :is_admin_signed_in="<%= admin_signed_in? %>"></f-navbar>
+  <% elsif seller_logged_in? %>
+      <f-navbar :seller="<%= current_seller.to_json %>" :is_admin_signed_in="<%= admin_signed_in? %>"></f-navbar>
   <% else %>
     <f-navbar :is_admin_signed_in="<%= admin_signed_in? %>"></f-navbar>
   <% end %>
@@ -36,5 +37,21 @@
   <% end %>
   <%= yield %>
 </div>
+<%- if request.fullpath == "/welcome/merch" or request.fullpath == "/welcome/sellers" or request.fullpath == "/" %>
+<footer class="footer">
+  <div class="content has-text-centered">
+    <p>
+      <strong>Feedem</strong> by <a href="https://github.com/kolaer">Maxim Naumov</a>(Backend) and <a href="https://github.com/s3rius">Pavel Kirilin</a>(Frontend). The source code is open on <a href="https://github.com/s3rius/feedEm/">github</a>.
+    </p>
+    <a href="https://bulma.io">
+      <img src="/img/bulma-footer.png" width="128" height="48" alt="Made with Bulma">
+    </a>
+    on
+    <a href="https://rubyonrails.org/">
+      <img src="/img/rails.png" width="48", height="48" alt="Rails">
+    </a>
+  </div>
+</footer>
+<% end %>
 </body>
 </html>

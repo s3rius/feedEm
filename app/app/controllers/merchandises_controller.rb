@@ -24,7 +24,7 @@ class MerchandisesController < ApplicationController
 
   # GET /merchandises/1/edit
   def edit
-    if not (admin_signed_in? or @merchandise.id == current_seller.id)
+    if not (admin_signed_in? or @merchandise.seller.id == current_seller.id)
       return redirect_to root_url, alert: 'Not enough power!'
     end
   end
@@ -52,7 +52,7 @@ class MerchandisesController < ApplicationController
   # PATCH/PUT /merchandises/1
   # PATCH/PUT /merchandises/1.json
   def update
-    if not (admin_signed_in? or (seller_logged_in? and @merchandise.id == current_seller.id and merchandise_params[:seller_id].to_i == current_seller.id))
+    if not (admin_signed_in? or (seller_logged_in? and @merchandise.seller_id.id == current_seller.id and merchandise_params[:seller_id].to_i == current_seller.id))
       return redirect_to root_url, alert: 'Not enough power!'
     end
 

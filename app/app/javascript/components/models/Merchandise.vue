@@ -14,7 +14,7 @@
                 <br>
                 <span>Made by: {{merchandise.seller.name}}</span>
                 <br>
-                <span>Cost: ${{merchandise.price}}</span>
+                <span>Cost: ${{merchandise.price/100}}</span>
             </div>
         </div>
         <footer class="card-footer">

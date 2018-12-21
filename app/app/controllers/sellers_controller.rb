@@ -92,6 +92,10 @@ class SellersController < ApplicationController
   end
 
   def liked
+    if seller_logged_in? and current_seller.id == @seller.id
+      return
+    end
+
     @seller.likes += 1
     @seller.save
 
@@ -104,6 +108,10 @@ class SellersController < ApplicationController
   end
 
   def disliked
+    if seller_logged_in? and current_seller.id == @seller.id
+      return
+    end
+
     @seller.dislikes += 1
     @seller.save
 
@@ -124,14 +132,16 @@ class SellersController < ApplicationController
     if @seller
       @seller_orders = [] 
 
-      Order.where(seller_id: @seller.id).each { |order| 
+      Order.where(customer_id: @seller.id).each { |order| 
         @seller_orders << {
+          seller_id: order.seller.id,
           customer_id: order.customer.id,
+          seller_name: order.seller.name,
           status: order.status,
-          items: OrderItem.where(order_id: order.id)
+          time: order.time,
+          items: OrderItem.select("*").where(order_id: order.id).joins(:merchandise)
         }
       }
-
       @seller_merchandises = Merchandise.where(seller_id: @seller.id)
     end
   end
