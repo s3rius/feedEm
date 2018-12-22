@@ -34,7 +34,9 @@ export default{
 			var component = this;
 	        let token = window.token;
 	        let url = `/sellers/disliked/${this.seller.id}`
+	        let message = "Can't add dislike for this seller"
 	        if (is_like){
+	        	message = "Can't add like for this seller"
 	        	url = `/sellers/liked/${this.seller.id}`
 	        }
 	        let axi_rate = this.axios.create({
@@ -57,7 +59,7 @@ export default{
             .catch(function (error) {
                 console.log(error);
                 component.$snackbar.open({
-                    message: "Can't add dislike for this seller",
+                    message: message,
                     type: "is-danger",
                     position: 'is-bottom-left'
                 });
