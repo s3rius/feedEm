@@ -52,19 +52,15 @@ class OrdersController < ApplicationController
     if customer_signed_in?
       return redirect_to root_url, alert: 'Customers can not set order status to ready'
     elsif admin_signed_in? or seller_logged_in?
-      order_id = params[:order_id]
-
-      if order_id.nil?
-        return render json: {status: 'error'}, status: 403
-      end
+      order_id = params[:orderId]
 
       order_id = order_id.to_i
 
-      if order_id <= 0
-        return render json: {status: 'error'}, status: 403
-      end
-
       order = Order.find(order_id)
+
+      if not order
+        return render json: {status: 'error'}, status: 404
+      end
 
       if not (admin_signed_in? or order.seller.id == current_seller.id)
         return render json: {status: 'error'}, status: 401
@@ -75,41 +71,44 @@ class OrdersController < ApplicationController
       end
 
       order.status = "ready"
-      orver.save!
+      order.save!
     else
         return redirect_to root_url, alert: 'Not enough power!'
     end
   end
 
   def order_close
-    order_id = params[:order_id]
-
-    if order_id.nil?
-      return render json: {status: 'error'}, status: 403
-    end
+    order_id = params[:orderId]
 
     order_id = order_id.to_i
 
-    if order_id <= 0
+    order = Order.find(order_id)
+
+    if not order
+      return render json: {status: 'error'}, status: 404
+    end
+
+    if order.status != "open"
       return render json: {status: 'error'}, status: 403
     end
 
-    order = Order.find(order_id)
-
     if admin_signed_in?
       order.status = "closed"
+      order.save!
     elsif customer_signed_in?
       if order.customer.id != current_customer.id
         return render json: {status: 'error'}, status: 401
       end
 
       order.status = "closed"
+      order.save!
     elsif seller_logged_in?
       if order.seller.id != current_seller.id
         return render json: {status: 'error'}, status: 401
       end
 
       order.status = "closed"
+      order.save!
     end
   end
 
@@ -205,7 +204,7 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:customer_id, :time)
+      params.require(:order).permit(:customer_id, :time, :seller_id, :status)
     end
 
     def authenticate_user_or_admin!

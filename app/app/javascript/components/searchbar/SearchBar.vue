@@ -138,7 +138,6 @@
     }
 
     .suggestions {
-        /* It's improtant to have a cpecific pivot point for transition:*/
         opacity: 1;
     }
 

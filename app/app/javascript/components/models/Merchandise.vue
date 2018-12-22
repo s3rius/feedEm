@@ -12,7 +12,7 @@
             <div class="content">
                 {{merchandise.description}}
                 <br>
-                <span>Made by: {{merchandise.seller.name}}</span>
+                <span>Made by: <a :href="`/sellers/${merchandise.seller.id}`">{{merchandise.seller.name}}</a></span>
                 <br>
                 <span>Cost: ${{merchandise.price/100}}</span>
             </div>

@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th>Customer</th>
+      <th>Seller</th>
       <th>Time</th>
       <th>Card</th>
       <th>Status</th>
@@ -15,6 +16,7 @@
     <% @orders.each do |order| %>
       <tr>
         <td><%= order.customer %></td>
+        <td><%= order.seller %></td>
         <td><%= order.time %></td>
         <td><%= order.card %></td>
         <td><%= order.status %></td>

@@ -132,8 +132,9 @@ class SellersController < ApplicationController
     if @seller
       @seller_orders = [] 
 
-      Order.where(customer_id: @seller.id).each { |order| 
+      Order.where(seller_id: @seller.id).each { |order| 
         @seller_orders << {
+          order_id: order.id,
           seller_id: order.seller.id,
           customer_id: order.customer.id,
           seller_name: order.seller.name,
@@ -142,6 +143,20 @@ class SellersController < ApplicationController
           items: OrderItem.select("*").where(order_id: order.id).joins(:merchandise)
         }
       }
+
+      @seller_orders.sort_by! {|order| 
+        case order[:status]
+          when "open"
+            1
+          when "ready"
+            2
+          when "closed"
+            3
+          else
+            -1
+        end
+      }
+
       @seller_merchandises = Merchandise.where(seller_id: @seller.id)
     end
   end

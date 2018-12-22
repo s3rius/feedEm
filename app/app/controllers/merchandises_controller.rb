@@ -70,7 +70,7 @@ class MerchandisesController < ApplicationController
   # DELETE /merchandises/1
   # DELETE /merchandises/1.json
   def destroy
-    if not (admin_signed_in? or (seller_logged_in? and @merchandise.id == current_seller.id))
+    if not (admin_signed_in? or (seller_logged_in? and @merchandise.seller.id == current_seller.id))
       return redirect_to root_url, alert: 'Not enough power!'
     end
 

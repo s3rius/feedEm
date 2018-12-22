@@ -32,6 +32,10 @@ import FeedemAddCreditCard from "../components/forms/AddCard";
 import FeedemCreditCard from "../components/models/CreditCard";
 import FeedemOrderItem from '../components/models/OrderItem'
 import FeedemSellerRating from '../components/models/SellerRating'
+import FeedemSearchBar from '../components/searchbar/SearchBar'
+import FeedemSearchPage from '../components/pages/SearchPage'
+import FeedemMerchPage from '../components/pages/MerchandisePage'
+
 
 Vue.use(TurbolinksAdapter);
 Vue.use(Buefy);
@@ -48,6 +52,9 @@ Vue.component('f-credit-card', FeedemCreditCard);
 Vue.component('f-add-credit-card', FeedemAddCreditCard);
 Vue.component('f-order-item', FeedemOrderItem);
 Vue.component('f-seller-rating', FeedemSellerRating);
+Vue.component('f-search', FeedemSearchBar);
+Vue.component('f-search-page', FeedemSearchPage);
+Vue.component('f-merchandise-page', FeedemMerchPage);
 
 document.addEventListener("turbolinks:click", () => {
     window.loaded = false;

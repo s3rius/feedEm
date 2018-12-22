@@ -98,12 +98,26 @@ class CustomersController < ApplicationController
 
       Order.where(customer_id: @customer.id).each { |order| 
         @customer_orders << {
+          order_id: order.id,
           seller_id: order.seller.id,
           seller_name: order.seller.name,
           status: order.status,
           time: order.time,
           items: OrderItem.select("*").where(order_id: order.id).joins(:merchandise)
         }
+      }
+
+      @customer_orders.sort_by! {|order| 
+        case order[:status]
+          when "open"
+            1
+          when "ready"
+            2
+          when "closed"
+            3
+          else
+            -1
+        end
       }
     end
   end

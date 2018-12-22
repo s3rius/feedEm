@@ -10,7 +10,17 @@
 
 <p>
 	<strong>Card:</strong>
-	<%= @order.card_id %>
+	<%= @order.card %>
+</p>
+
+<p>
+	<strong>Seller:</strong>
+	<%= @order.seller %>
+</p>
+
+<p>
+	<strong>Status:</strong>
+	<%= @order.status %>
 </p>
 
 <%= link_to 'Edit', edit_order_path(@order) %> |

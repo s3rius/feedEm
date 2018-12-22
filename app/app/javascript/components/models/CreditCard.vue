@@ -19,12 +19,6 @@
                 <b-icon icon="check"></b-icon>
                 Use card</a>
         </footer>
-        <footer class="card-footer" v-else>
-            <a @click="removeCard" class="card-footer-item">
-                <b-icon icon="delete"></b-icon>
-                Remove</a>
-            <a :href="getLink()" class="card-footer-item">Open</a>
-        </footer>
     </div>
 </template>
 
@@ -51,7 +45,7 @@
         },
         methods: {
             removeCard() {
-                this.hidden = true;
+                let component = this;
                 let axi_delete = this.axios.create({
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest',
@@ -61,8 +55,21 @@
                     }
                 });
                 axi_delete.delete(`/cards/${this.card.id}`)
-                    .then(function (response) {
+                    .then(response => {
                         console.log(response);
+                        component.hidden = true;
+                        component.$snackbar.open({
+                            message: "Card deleted successfully",
+                            type: "is-success",
+                            position: 'is-bottom-left'
+                        });
+                    }).catch(error => {
+                        console.log(error);
+                        component.$snackbar.open({
+                            message: "Can't delete card",
+                            type: "is-danger",
+                            position: 'is-bottom-left'
+                        });
                     });
             },
             getLink() {
@@ -90,7 +97,7 @@
                     }).catch(error => {
                         console.log(error);
                         component.$snackbar.open({
-                            message: "Can't process order.",
+                            message: "Can't process order",
                             type: "is-danger",
                             position: 'is-bottom-left'
                         });

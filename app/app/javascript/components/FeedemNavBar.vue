@@ -99,13 +99,11 @@
 </template>
 
 <script>
-    import FeedemSearch from "./searchbar/SearchBar";
     import FeedemCart from './cart/Cart'
 
     export default {
         name: "FeedemNavBar",
         components: {
-            'f-search': FeedemSearch,
             'f-cart': FeedemCart
         },
         props: {
