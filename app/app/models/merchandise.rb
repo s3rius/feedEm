@@ -5,7 +5,7 @@ class Merchandise < ApplicationRecord
   has_many :order_item, dependent: :destroy
 
   pg_search_scope :search_by_name,
-                  against: :name,
+                  against: [:name, :description],
                   using: { tsearch: { prefix: true } },
                   ranked_by: ':trigram'
 
