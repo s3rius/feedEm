@@ -1,15 +1,135 @@
+require 'date'
+
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user_or_admin!
+
+  def add_order
+    if customer_signed_in?
+      customer_card = params[:card]
+      customer_order = params[:order]
+
+      if customer_card.nil? or customer_order.nil?
+        return render json: {status: 'error'}, status: 403
+      end
+
+      customer_card = customer_card.to_i
+
+      if customer_card <= 0
+        return render json: {status: 'error'}, status: 403
+      end
+
+      if current_customer.id != Card.find(customer_card).customer_id
+        return render json: {status: 'error'}, status: 401
+      end
+
+      customer_order_items = customer_order[:items]
+      seller_id = customer_order[:seller_id]
+
+      total_time = customer_order_items.map { |item|
+        item[:cook_time].to_i
+      }.inject(:+)
+
+      end_time = total_time.minutes.from_now
+
+      ActiveRecord::Base.transaction do
+        customer_order = Order.create! customer_id: current_customer.id, time: end_time, card_id: customer_card, status: "open", seller_id: seller_id
+
+        customer_order_items.map { |item|
+          OrderItem.create! order: customer_order, merchandise_id: item[:id].to_i, quantity: item[:quantity].to_i
+        }
+      end
+
+      return render json: {status: 'ok'}
+    elsif admin_signed_in?
+      return redirect_to root_url, alert: 'Admins can not order'
+    else
+      return redirect_to root_url, alert: 'Sellers can not order'
+    end
+  end
+
+  def order_ready
+    if customer_signed_in?
+      return redirect_to root_url, alert: 'Customers can not set order status to ready'
+    elsif admin_signed_in? or seller_logged_in?
+      order_id = params[:orderId]
+
+      order_id = order_id.to_i
+
+      order = Order.find(order_id)
+
+      if not order
+        return render json: {status: 'error'}, status: 404
+      end
+
+      if not (admin_signed_in? or order.seller.id == current_seller.id)
+        return render json: {status: 'error'}, status: 401
+      end
+
+      if order.status != "open"
+        return render json: {status: 'error'}, status: 403
+      end
+
+      order.status = "ready"
+      order.save!
+    else
+        return redirect_to root_url, alert: 'Not enough power!'
+    end
+  end
+
+  def order_close
+    order_id = params[:orderId]
+
+    order_id = order_id.to_i
+
+    order = Order.find(order_id)
+
+    if not order
+      return render json: {status: 'error'}, status: 404
+    end
+
+    if order.status != "open"
+      return render json: {status: 'error'}, status: 403
+    end
+
+    if admin_signed_in?
+      order.status = "closed"
+      order.save!
+    elsif customer_signed_in?
+      if order.customer.id != current_customer.id
+        return render json: {status: 'error'}, status: 401
+      end
+
+      order.status = "closed"
+      order.save!
+    elsif seller_logged_in?
+      if order.seller.id != current_seller.id
+        return render json: {status: 'error'}, status: 401
+      end
+
+      order.status = "closed"
+      order.save!
+    end
+  end
 
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+    if admin_signed_in?
+      @orders = Order.all
+    elsif seller_logged_in?
+      @orders = Order.where(:seller_id => current_seller.id)
+    else
+      @orders = Order.where(:customer_id => current_customer.id)
+    end
   end
 
   # GET /orders/1
   # GET /orders/1.json
   def show
+    if not (admin_signed_in? or (seller_logged_in? and @order.seller.id == current_seller.id) or (customer_signed_in? and @order.customer.id == current_customer.id))
+      return redirect_to root_url, alert: 'Not enough power!'
+    end
   end
 
   # GET /orders/new
@@ -19,11 +139,18 @@ class OrdersController < ApplicationController
 
   # GET /orders/1/edit
   def edit
+    if not (admin_signed_in? or (seller_logged_in? and @order.seller.id == current_seller.id) or (customer_signed_in? and @order.customer.id == current_customer.id))
+      return redirect_to root_url, alert: 'Not enough power!'
+    end
   end
 
   # POST /orders
   # POST /orders.json
   def create
+    if not (admin_signed_in? or seller_logged_in? or customer_signed_in?)
+      return redirect_to root_url, alert: 'Not enough power!'
+    end
+
     @order = Order.new(order_params)
 
     respond_to do |format|
@@ -40,6 +167,10 @@ class OrdersController < ApplicationController
   # PATCH/PUT /orders/1
   # PATCH/PUT /orders/1.json
   def update
+    if not (admin_signed_in? or (seller_logged_in? and @order.seller.id == current_seller.id) or (customer_signed_in? and @order.customer.id == current_customer.id))
+      return redirect_to root_url, alert: 'Not enough power!'
+    end
+
     respond_to do |format|
       if @order.update(order_params)
         format.html { redirect_to @order, notice: 'Order was successfully updated.' }
@@ -54,6 +185,10 @@ class OrdersController < ApplicationController
   # DELETE /orders/1
   # DELETE /orders/1.json
   def destroy
+    if not (admin_signed_in? or (seller_logged_in? and @order.seller.id == current_seller.id) or (customer_signed_in? and @order.customer.id == current_customer.id))
+      return redirect_to root_url, alert: 'Not enough power!'
+    end
+
     @order.destroy
     respond_to do |format|
       format.html { redirect_to orders_url, notice: 'Order was successfully destroyed.' }
@@ -69,6 +204,12 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:customer_id, :time)
+      params.require(:order).permit(:customer_id, :time, :seller_id, :status)
+    end
+
+    def authenticate_user_or_admin!
+      if not (signed_in? or seller_logged_in?)
+        authenticate_customer!
+      end
     end
 end

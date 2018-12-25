@@ -1,12 +1,7 @@
-<div class="vue">
-  <f-navbar></f-navbar>
-<p id="notice"><%= notice %></p>
-
-  <p>
-    <strong>Username:</strong>
-    <%= @admin.username %>
+<p>
+  <strong>Email:</strong>
+  <%= @admin.email %>
 </p>
 
-  <%= link_to 'Edit', edit_admin_path(@admin) %> |
+<%= link_to 'Edit', edit_admin_path(@admin) %> |
 <%= link_to 'Back', admins_path %>
-</div>

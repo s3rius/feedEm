@@ -22,7 +22,7 @@
                         message: err,
                         type: this.type,
                         position: 'is-bottom-left'
-                    })
+                    });
                 });
 
             }

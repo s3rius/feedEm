@@ -9,44 +9,37 @@
 
 sellers = %w[CoolFood
              FakeBurgers
-             FunnyCrap
-             FilthyCream
-             ShittyDonuts
-             Sim
-             BitchyMilk]
+             FunnyMall]
 
 sellers.each do |name|
   seller = Seller.create(name: name)
   merchandises = [
-    %w[shit fuck 20],
-    %w[borgir fish 30],
-    %w[burgar beef 30],
-    %w[bregar rats 30],
-    %w[donut crap 10],
-    %w[Fluke shit 10],
-    %w[Fuckface you 1],
-    %w[cream gold 21],
-    %w[semen protein 3],
-    %w[bitchWax saliva 15]
+    %w[Burger Burger 20],
+    %w[CheeseBurger CheeseBurger 25],
+    %w[Chocolate Chocolate 15],
+    %w[Cola Soda 10],
+    %w[Sprite Soda 10],
   ]
   merchandises.each do |m_name, m_desc, m_price|
     Merchandise.create(name: m_name,
                        description: 'made from ' + m_desc,
                        price: m_price,
+                       cook_time: 20,
                        seller: seller)
   end
 end
 
 cu_users = [
-  %w[s3rius 19216211 Pavel Kirilin],
-  %w[kolaer 32883212 Maxim Naumov],
-  %w[animeThug 12332122 Andrei Belousov]
+  %w[s3rius@emial.mail 19216211 Pavel Kirilin],
+  %w[kolaer@emial.mail 32883212 Maxim Naumov],
+  %w[animeThug@emial.mail 12332122 Andrei Belousov]
 ]
 
-cu_users.each do |username, pass, name, surname|
-  Customer.create(username: username,
+cu_users.each do |email, pass, name, surname|
+  Customer.create(email: email,
                   name: name,
                   surname: surname,
-                  password_digest: pass)
+                  password: pass)
+  Admin.create(email: email, password: pass)
 end
 

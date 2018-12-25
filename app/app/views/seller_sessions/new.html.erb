@@ -1,0 +1,29 @@
+<f-title :title="'Log in as seller'"></f-title>
+
+<form class="form" action="/seller_sessions/create" accept-charset="UTF-8" method="post">
+	<input name="utf8" type="hidden" value="✓">
+	<input type="hidden" name="authenticity_token" value="<%= session[:_csrf_token] %>">
+	<div class="field">
+		<div class="control has-icons-left has-icons-right">
+			<input autocomplete="current-password" placeholder="Token" type="password" name="token" id="seller_token" class="input is-medium">
+		</div>
+	</div>
+	<div class="field is-grouped">
+	
+		<p class="control">
+			<input type="submit" name="commit" value="Log in" data-disable-with="Log in" class="button is-primary">
+		</p>
+
+		<p class="control">
+			<a class="button is-primary" href="/customers/sign_in">
+			  As customer
+			</a>
+		</p>
+
+		<p class="control">
+			<a class="button is-primary" href="/admins/sign_in">
+			  As admin
+			</a>
+		</p>
+	</div>
+</form>

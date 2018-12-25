@@ -1,19 +1,33 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Username:</strong>
-  <%= @customer.username %>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @customer.name %>
-</p>
-
-<p>
-  <strong>Surname:</strong>
-  <%= @customer.surname %>
-</p>
-
-<%= link_to 'Edit', edit_customer_path(@customer) %> |
-<%= link_to 'Back', customers_path %>
+<div class="tile is-ancestor">
+  <div class="tile is-vertical is-8">
+    <div class="tile is-parent">
+      <article class="tile is-child box">
+        <p class="title">My orders</p>
+<!--        <p class="subtitle">Aligned with the right column</p>-->
+        <div class="content">
+          <% @customer_orders.each do |order| %>
+            <f-order-item :status="'<%= order[:status] %>'" :order="<%= order.to_json %>" ></f-order-item>
+          <% end %>
+        </div>
+      </article>
+    </div>
+  </div>
+  <div class="tile is-parent is-vertical">
+      <article class="tile is-child">
+      <div class="content">
+        <div class="box">
+          <p class="title">Add new card</p>
+          <div class="content">
+            <f-add-credit-card :customer-id="'<%= @customer.id %>'"></f-add-credit-card>
+          </div>
+        </div>
+        <div class="box">
+            <p class="title">My Cards</p>
+            <% @customer_cards.each do |card| %>
+              <f-credit-card :card="<%= card.to_json %>"></f-credit-card>
+            <% end %>
+        </div>
+      </div>
+    </article>
+  </div>
+</div>

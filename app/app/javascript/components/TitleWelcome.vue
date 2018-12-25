@@ -1,56 +1,55 @@
 <template>
     <div>
         <section class="hero is-medium" v-bind:style="{ 'background-image': 'url(' + image + ')' }">
-            <div class="hero-head">
-                <f-navbar :visible_search="visible"></f-navbar>
-            </div>
             <div class="hero-body has-text-centered">
                 <f-search class="s-bar" :is_half="true" v-observe-visibility="searchBarObserver">
                 </f-search>
             </div>
-            <div class="hero-foot">
-                <nav class="tabs is-boxed is-fullwidth">
-                    <div class="container">
-                        <ul>
-                            <li :class="{'is-active': activeTab(0)}">
-                                <a href="/" :class="{'has-text-white': !activeTab(0)}">Available merchandises</a>
-                            </li>
-                            <li :class="{'is-active': activeTab(1)}">
-                                <a href="/welcome/sellers" :class="{'has-text-white': !activeTab(1)}">Sellers</a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
         </section>
         <section id="tabs">
-            <slot></slot>
+            <b-tabs  position="is-centered" class="block">
+                <b-tab-item label="Merchandises" icon="food-fork-drink">
+                    <div class="container" style="margin-top: 2%">
+                      <div class="columns is-multiline is-mobile">
+                          <div class="column is-3-desktop is-12-mobile is-mobile" v-for="merch of merchandises">
+                            <f-merch-card :merchandise="merch"></f-merch-card>
+                          </div>
+                      </div>
+                    </div>
+                </b-tab-item>
+                <b-tab-item label="Sellers" icon="store">
+                  <div class="container" style="margin-top: 2%">
+                    <div class="columns is-multiline is-mobile">
+                        <div class="column is-12-desktop is-12-mobile is-mobile" v-for="seller of sellers">
+                          <f-seller-card :seller="seller"></f-seller-card>
+                        </div>
+                    </div>
+                  </div>
+                </b-tab-item>
+            </b-tabs>
         </section>
     </div>
 </template>
 
 <script>
-    import FeedemSearch from "./searchbar/SearchBar";
-
     export default {
         name: "TitleWelcome",
-        components: {
-            'f-search': FeedemSearch
-        },
         props: {
-            tabIndex: {
-                default: 0
+            sellers:{
+                default: () => []
+            },
+            merchandises:{
+                default: () => []
             }
         },
         data: function () {
             return {
                 image: "/img/sushi.jpg",
-                visible: false,
             }
         },
         methods: {
             searchBarObserver(isVisible, entry) {
-                this.visible = !isVisible;
+                this.$events.emit('hideSearchBar', !isVisible)
             },
             activeTab: function (index) {
                 console.log(`loaded index=${index}.\nLoaded tabIndex=${this.tabIndex}`);

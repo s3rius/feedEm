@@ -25,9 +25,9 @@
                     Documentation
                 </a>
 
-                <div class="navbar-item has-dropdown is-hoverable">
+                <div class="navbar-item has-dropdown is-hoverable" v-if="is_admin_signed_in">
                     <a class="navbar-link white">
-                        Models
+                        Admin control
                     </a>
 
                     <div class="navbar-dropdown">
@@ -50,10 +50,10 @@
                         <a href="/order_items" class="navbar-item">
                             Order items
                         </a>
-                        <a href="/cards" class="navbar-item">
-                            Cards
-                        </a>
                         <hr class="navbar-divider">
+                        <a @click="logoutAdmin" class="navbar-item" >
+                            Turn admin mode off
+                        </a>
                         <a href="https://github.com/s3rius/feedEm/issues/new" class="navbar-item">
                             Report an issue
                         </a>
@@ -66,12 +66,30 @@
                     <f-search></f-search>
                 </div>
                 <div class="navbar-item">
-                    <div class="buttons">
-                        <a class="button is-primary">
+                    <div class="buttons" v-if="user == null && seller == null">
+                        <f-cart></f-cart>
+                        <a class="button is-primary" href="/customers/sign_up">
                             <strong>Sign up</strong>
                         </a>
-                        <a class="button is-light">
+                        <a class="button is-light" href="/customers/sign_in">
                             Log in
+                        </a>
+                    </div>
+                    <div class="buttons" v-else-if="seller != null">
+                        <a class="button is-primary" :href="`/sellers/${seller.id}`">
+                            <strong>Manage shop</strong>
+                        </a>
+                        <a class="button is-light" @click="logoutSeller">
+                            Sign out
+                        </a>
+                    </div>
+                    <div class="buttons" v-else>
+                        <f-cart :user="this.user"></f-cart>
+                        <a class="button is-primary" :href="`/customers/${user.id}`">
+                            Profile
+                        </a>
+                        <a class="button is-primary" @click="logout">
+                            <strong>Sign out</strong>
                         </a>
                     </div>
                 </div>
@@ -81,26 +99,110 @@
 </template>
 
 <script>
-    import FeedemSearch from "./searchbar/SearchBar";
+    import FeedemCart from './cart/Cart'
 
     export default {
         name: "FeedemNavBar",
         components: {
-            'f-search': FeedemSearch
+            'f-cart': FeedemCart
         },
         props: {
-            visible_search: {
-                default: true
+            user: {
+                default: () => null
+            },
+            is_admin_signed_in: {
+                default: false
+            },
+            token: {
+                default: ''
+            },
+            seller:{
+                default: () => null
             }
         },
         data: function () {
             return {
-                active: false
+                active: false,
+                visible_search: true
             }
+        },
+        mounted() {
+            this.$events.listen('hideSearchBar', eventData => {
+                this.visible_search = eventData
+            })
         },
         methods: {
             openBar: function (event) {
                 this.active = !this.active;
+            },
+            logout(event) {
+                let sign_out = this.axios.create({
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        "X-CSRF-Token": window.token,
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                });
+                var component = this;
+                sign_out.delete("/customers/sign_out").then((response) => {
+                    console.log("Logout successfully");
+                    location.reload();
+                }).catch((error) => {
+                    component.$snackbar.open({
+                        message: error,
+                        type: "is-danger",
+                        position: 'is-bottom-left'
+                    });
+                    console.log(error);
+                });
+            },
+            logoutSeller(event){
+                let sign_out = this.axios.create({
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        "X-CSRF-Token": window.token,
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                });
+                var component = this;
+                sign_out.delete("/seller_sessions/destroy").then((response) => {
+                    location.reload();
+                }).catch((error) => {
+                    component.$snackbar.open({
+                        message: "Can't logout as seller.",
+                        type: "is-danger",
+                        position: 'is-bottom-left'
+                    });
+                    console.log(error);
+                });
+            },
+            logoutAdmin(event) {
+                let sign_out = this.axios.create({
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        "X-CSRF-Token": window.token,
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                });
+                var component = this;
+                sign_out.delete("/admins/sign_out").then((response) => {
+                    component.$snackbar.open({
+                        message: "Logout successfully",
+                        type: "is-success",
+                        position: 'is-bottom-left'
+                    });
+                    component.is_admin_signed_in = false;
+                }).catch((error) => {
+                    component.$snackbar.open({
+                        message: "Can't logout as admin.",
+                        type: "is-danger",
+                        position: 'is-bottom-left'
+                    });
+                    console.log(error);
+                });
             }
         }
     }

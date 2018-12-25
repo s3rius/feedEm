@@ -1,24 +1,73 @@
-<p id="notice"><%= notice %></p>
+<% if admin_signed_in? or (seller_logged_in? and current_seller.id == @seller.id) %>
+<%# Visible for admins or this seller %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @seller.name %>
-</p>
-
-<p>
-  <strong>Likes:</strong>
-  <%= @seller.likes %>
-</p>
-
-<p>
-  <strong>Dislikes:</strong>
-  <%= @seller.dislikes %>
-</p>
-
-<p>
-  <strong>Auth token:</strong>
-  <%= @seller.auth_token %>
-</p>
-
-<%= link_to 'Edit', edit_seller_path(@seller) %> |
-<%= link_to 'Back', sellers_path %>
+  <div class="tile is-ancestor">
+    <div class="tile is-vertical is-8">
+      <div class="tile is-parent">
+        <article class="tile is-child box">
+          <p class="title">Requested orders</p>
+          <div class="content">
+            <% @seller_orders.each do |order| %>
+              <f-order-item :for_seller="true" :status="'<%= order[:status] %>'" :order="<%= order.to_json %>" ></f-order-item>
+            <% end %>
+          </div>
+        </article>
+      </div>
+    </div>
+    <div class="tile is-parent is-vertical">
+        <article class="tile is-child box">
+        <div class="content">
+          <p class="title"><%= @seller.name %></p>
+          <div class="content">
+            <div class="box">
+              <f-seller-rating :is_usable="false" :seller="<%= @seller.to_json %>"></f-seller-rating>
+            </div>
+            <div class="box">
+              <p class="title">Controls</p>
+              <div class="content">
+                <div class="buttons">
+                  <a href="/merchandises" class="button is-primary is-fullwidth">Manage merchandises</a>
+                  <a href="#" class="button is-primary is-fullwidth">Request new token</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+<% else %>
+<%# Visible for others %>
+  <div class="tile is-ancestor">
+    <div class="tile is-vertical is-8">
+      <div class="tile">
+      <div class="tile is-parent">
+        <article class="tile is-child">
+          <p class="title">Seller's merchandises</p>
+          <div class="content">
+              <div class="columns is-multiline is-mobile">
+                <% @seller_merchandises.each do |merchandise| %>
+                  <div class="column is-4-desktop is-12-mobile is-mobile">
+                    <f-merch-card :merchandise="<%= merchandise.to_json(:include => :seller, :except => [:created_at, :updated_at]) %>"></f-merch-card>
+                  </div>
+                <% end %>
+              </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+  <div class="tile is-parent is-vertical">
+        <article class="tile is-child">
+        <div class="content">
+          <p class="title"><%= @seller.name %></p>
+          <div class="content">
+            <div class="box">
+              <f-seller-rating :seller="<%= @seller.to_json %>"></f-seller-rating>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+</div>
+<% end %>

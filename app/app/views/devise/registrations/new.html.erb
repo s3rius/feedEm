@@ -1,0 +1,49 @@
+<f-title :title='"Register"' :subtitle="''"></f-title>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <% if devise_error_messages! %>
+    <f-snack :errors="<%= devise_error_messages! %>"></f-snack>
+  <% end %>
+  <div class="form">
+
+    <div class="field">
+      <div class="control has-icons-left has-icons-right">
+        <%= f.text_field :name, class: "input is-medium", placeholder: "Name" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control has-icons-left has-icons-right">
+        <%= f.text_field :surname, class: "input is-medium", placeholder: "Surname", required: true %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control has-icons-left has-icons-right">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input is-medium", placeholder: "Email", required: true %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control has-icons-left has-icons-right">
+        <%= f.password_field :password, autocomplete: "new-password", class: "input is-medium", placeholder: "Password", required: true %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control has-icons-left has-icons-right">
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input is-medium", placeholder: "Password confirmation", required: true %>
+      </div>
+    </div>
+
+
+    <div class="field is-grouped">
+      <p class="control">
+        <%= f.submit class: "button is-primary" %>
+      </p>
+      <%= render "devise/shared/links" %>
+    </div>
+<% end %>
+
+
+</div>

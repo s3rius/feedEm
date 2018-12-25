@@ -10,10 +10,15 @@
 console.log("Vue app rendering is running.");
 import TurbolinksAdapter from "vue-turbolinks";
 import Vue from "vue/dist/vue.esm";
+import VueEvents from 'vue-events'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Buefy from 'buefy';
 import 'buefy/dist/buefy.css';
+import 'bulma-extensions/bulma-badge/dist/css/bulma-badge.min.css';
+import 'bulma-extensions/bulma-pageloader/dist/css/bulma-pageloader.min.css';
+import 'bulma-extensions/bulma-steps/dist/css/bulma-steps.min.css';
+import 'bulma-extensions/bulma-steps/dist/js/bulma-steps';
 import 'vue-resize/dist/vue-resize.css';
 import '@mdi/font/css/materialdesignicons.min.css';
 import VueObserveVisibility from 'vue-observe-visibility';
@@ -21,11 +26,20 @@ import FeedEmNavBar from "../components/FeedemNavBar";
 import FeedemTitle from "../components/TitleSimple";
 import FeedemErrorSnack from "../components/SnackBar";
 import FeedemTitleWelcome from "../components/TitleWelcome";
-import FeedemMerchandiseCard from "../components/models/merchandise"
+import FeedemMerchandiseCard from "../components/models/Merchandise";
+import FeedemSellerCard from "../components/models/Seller";
+import FeedemAddCreditCard from "../components/forms/AddCard";
+import FeedemCreditCard from "../components/models/CreditCard";
+import FeedemOrderItem from '../components/models/OrderItem'
+import FeedemSellerRating from '../components/models/SellerRating'
+import FeedemSearchBar from '../components/searchbar/SearchBar'
+import FeedemSearchPage from '../components/pages/SearchPage'
+import FeedemMerchPage from '../components/pages/MerchandisePage'
 
 
 Vue.use(TurbolinksAdapter);
 Vue.use(Buefy);
+Vue.use(VueEvents);
 Vue.use(VueAxios, axios);
 Vue.use(VueObserveVisibility);
 Vue.component("f-navbar", FeedEmNavBar);
@@ -33,9 +47,36 @@ Vue.component("f-title", FeedemTitle);
 Vue.component("f-snack", FeedemErrorSnack);
 Vue.component('f-welcome-title', FeedemTitleWelcome);
 Vue.component('f-merch-card', FeedemMerchandiseCard);
+Vue.component('f-seller-card', FeedemSellerCard);
+Vue.component('f-credit-card', FeedemCreditCard);
+Vue.component('f-add-credit-card', FeedemAddCreditCard);
+Vue.component('f-order-item', FeedemOrderItem);
+Vue.component('f-seller-rating', FeedemSellerRating);
+Vue.component('f-search', FeedemSearchBar);
+Vue.component('f-search-page', FeedemSearchPage);
+Vue.component('f-merchandise-page', FeedemMerchPage);
+
+document.addEventListener("turbolinks:click", () => {
+    window.loaded = false;
+    setTimeout(function () {
+        if (!window.loaded) {
+            var pageloader = document.getElementById("pageloader");
+            if (!pageloader.classList.contains("is-active")) {
+                pageloader.classList.toggle('is-active');
+            }
+        }
+    }, 2000);
+
+});
 
 document.addEventListener("turbolinks:load", () => {
+    window.loaded = true;
+    var pageloader = document.getElementById("pageloader");
+    if (pageloader.classList.contains("is-active")) {
+        pageloader.classList.toggle('is-active');
+    }
     const mv = new Vue({
         el: ".vue"
     });
+    window.token = document.getElementsByName("super-token")[0].content;
 });
